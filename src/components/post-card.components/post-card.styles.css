@@ -3,19 +3,24 @@
     flex-direction: column;
     width: 568px;
     padding: 5px;
+    color: aqua;
 }
 .cardBody{
     display: flex;
     flex-direction: row;
     width: 100%;
+    color: antiquewhite;
 }
 .rightCol{
     display: flex;
     flex-direction: column;
     padding: 5px;
+    color: blue;
+    width: 100%;
 }
 .avatar{
-    width: 49px;;
+    width: 49px;
+    color: brown;
 }
 .avatar>img{
     width: 49px;
@@ -23,16 +28,20 @@
 .header{
     display: flex;
     justify-content: space-between;
+    color: yellow;
 }
 .header>.details{
     display: flex;
     justify-content: left;
+    color: green;
 }
 .header>.setting{
     display: flex;
     justify-content: right;
+    color: wheat;
 }
 .post{
     display: flex;
     flex-direction: column;
+    color: magenta;
 }
