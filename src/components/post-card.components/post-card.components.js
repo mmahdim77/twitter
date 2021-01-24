@@ -1,6 +1,10 @@
 
 import React from 'react';
 import './post-card.styles.css';
+import 'antd/dist/antd.css';
+import { Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+
 // import CustomButton from '../custom-button/custom-button.component' 
 // import {useState , useEffect} from 'react';
 // import axios from 'axios';
@@ -20,7 +24,7 @@ const PostCard = ({avatar , name , userName , date , postText , postMedias }) =>
             }
             <div className="cardBody">
                 <div className="avatar">
-                    <img src={avatar} />
+                    <Avatar size={64} icon={<UserOutlined />} />
                 </div>
                 <div className="rightCol">
                     <div className="header">
