@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import CustomButton from './components/button.components/button.components'
 function App() {
