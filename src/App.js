@@ -1,23 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
-
+import PostCard from './components/post-card.components/post-card.components'
+import CustomButton from './components/button.components/button.components'
 function App() {
+  const list = ['home', 'tweets', 'notification']
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {
+        list.map((text , id) => <CustomButton  icon="./icon.png" text={text} id={id} />)
+      }
     </div>
   );
 }

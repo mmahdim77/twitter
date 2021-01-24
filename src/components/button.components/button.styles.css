@@ -1,0 +1,16 @@
+.custom-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    border-radius: 16px;
+    padding: 5px 10px;
+    width: 200px;
+    height:50px;
+    align-items: center;
+    background-color: rgb(100, 183, 255);
+}
+.custom-button>img{
+    width: 26.25px;
+    height: 26.25px;
+    margin: 2px;
+}

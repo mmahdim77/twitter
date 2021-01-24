@@ -1,0 +1,38 @@
+.postCard{
+    display: flex;
+    flex-direction: column;
+    width: 568px;
+    padding: 5px;
+}
+.cardBody{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.rightCol{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+.avatar{
+    width: 49px;;
+}
+.avatar>img{
+    width: 49px;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+.header>.details{
+    display: flex;
+    justify-content: left;
+}
+.header>.setting{
+    display: flex;
+    justify-content: right;
+}
+.post{
+    display: flex;
+    flex-direction: column;
+}
