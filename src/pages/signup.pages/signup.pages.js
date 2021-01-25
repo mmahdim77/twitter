@@ -39,7 +39,7 @@ export default function SignUpPage({ setToken }) {
     const handleSubmit = async e => {
         e.preventDefault();
         let formData = {"email" : email , "username": username, "password" : password}
-        axios.post('http://twitterapifinal.pythonanywhere.com/account/register/', formData).then(
+        axios.post('http://twitterapifinal.pythonanywhere.com/account/register', formData).then(
             res => {
                 console.log(res)
             }
