@@ -1,13 +1,39 @@
-.Navbar .image{
-    margin-top: 100px;
-    margin-left: 60px;
+ .Navbar .image{
+    margin: 20px;
+    justify-items: center;
 }
-.Navbar .a{
-    margin-left: 60px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+.Navbar .button{
+    margin: 10px;
+    /* justify-items: center; */
 }
-.Navbar .flex{
-    display: flex;
-    flex-direction: column;
+div .Navbar{
+    height: 384px;
+    width: 384px;
+    justify-items: center;
+}
+.Navbar .b{
+    height: 35px;
+    width: 130px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 19px;
+    border: none;
+    justify-items: center;
+    
+}
+
+.Navbar .b:hover{
+    background-color:#daeefc;
+    transition: 0.4s;
+}
+.Navbar .tweet{
+    height: 35px;
+    width: 130px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 15px;
+    color: white;
+    border: none;
+    justify-items: center;
+    background-color: rgb(28, 164, 252);
 }

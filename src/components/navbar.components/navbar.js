@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Input, Space } from 'antd';
+import { Button } from 'antd';
 import Logo from './logo.png'
-import PersonIcon from '@material-ui/icons/Person';
-import { HomeOutlined,UserOutlined } from '@ant-design/icons';
+import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css'
 import './navbar.styles.css'
 
@@ -10,26 +9,18 @@ function Navbar() {
   return (
     <div className="Navbar">
       <div className="image">
-        <img src={Logo} height='24px' width='30px'>
+        <img src={Logo} height='36px' width='45px'>
         </img>
       </div>
-      <a >
-        <div>
-          <div className="a">
-            <HomeOutlined />
-            Home
-          </div>
-          <div>
-
-          </div>
-        </div>
-      </a>
-      <a >
-        <div className="a">
-          <UserOutlined />
-          Profile
-        </div>
-      </a>
+      <div className="button">
+        <Button className="b"  icon={<HomeOutlined />}>Home</Button>
+      </div>
+      <div className="button">
+        <Button className="b" icon={<UserOutlined />}>Profile</Button>
+      </div>
+      <div className="button">
+        <Button className="tweet" >Tweet</Button>
+      </div>
     </div>
   );
 }
