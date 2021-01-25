@@ -3,6 +3,7 @@ import {Input, Space } from 'antd';
 import Logo from './logo.png'
 import './signup.styles.css'
 import 'antd/dist/antd.css'
+import axios from 'axios';
 
 
 
@@ -37,11 +38,12 @@ export default function SignUpPage({ setToken }) {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        const token = await loginUser({
-            email,
-            password
-        });
-        setToken(token);
+        let formData = {"email" : email , "username": username, "password" : password}
+        axios.post('http://twitterapifinal.pythonanywhere.com/account/register/', formData).then(
+            res => {
+                console.log(res)
+            }
+        )
     }
 
     return (

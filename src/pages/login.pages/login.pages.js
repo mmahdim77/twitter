@@ -3,6 +3,10 @@ import { Input, Space, notification } from 'antd';
 import Logo from './logo.png'
 import './login.styles.css'
 import 'antd/dist/antd.css'
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+
+
 
 
 
@@ -17,27 +21,12 @@ export default function LoginPage({ setToken }) {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        fetch('http://twitterapifinal.pythonanywhere.com/account/login/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
-        })
-            .then(response => {
-                if (!response.ok) {
-                    notification.open({
-                        message: 'Notification Title',
-                        description:
-                            'No active account found with the given credentials',
-                        onClick: () => {
-                            console.log('Notification Clicked!');
-                        },
-                    })
-                }
-                else{setToken(response.json())}
-                    
-            })
+        let formData = {"email" : email , "password" : password}
+        axios.post('http://twitterapifinal.pythonanywhere.com/account/login/', formData).then(
+            res => {
+                setToken(res.data.access)
+            }
+        )
     }
 
     return (
@@ -65,7 +54,7 @@ export default function LoginPage({ setToken }) {
                     Forgot password?
                 </span>
                 <span>
-                    Sign up for Twitter
+                    <Link to="/signup">Sign up for Twitter</Link>
                 </span>
             </div>
         </div>
