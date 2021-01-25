@@ -1,4 +1,4 @@
-.Login Button {
+.Signup Button {
     padding: 0;
     width: 485px;
     height: 50px;
@@ -12,37 +12,36 @@
     outline: none;
 }
 
-.Login img {
+.Signup img {
     margin-top: 30px;
 }
 
-.Login button:disabled {
+.Signup button:disabled {
     background-color: rgb(148, 212, 252);
 }
 
-.Login {
+.Signup {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.Login form {
+.Signup form {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.Login .input {
+.Signup .input {
     border-radius: 5px;
     padding: 10px;
     font-size: medium;
     margin-top: 7px;
-    margin-bottom: 5px;
     width: 470px;
     height: 50px;
 }
 
-.Login .space {
+.Signup .space {
     border-radius: 5px;
     font-size: medium;
     width: 471px;
@@ -51,6 +50,6 @@
     margin-right: 6px;
 }
 
-.Login span {
+.Signup span {
     margin: 7px;
 }
