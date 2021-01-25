@@ -7,6 +7,7 @@ import Navbar from './components/navbar.components/navbar'
 import PostCard from './components/post-card.components/post-card.components'
 import WriteTweet from './components/write-tweet/write-tweet.components'
 import Profile from './pages/profile/profile.pages'
+import Home from './pages/home.pages/home.pages'
 
 
 
@@ -21,6 +22,9 @@ function App() {
   return (
     <div className="App">
       <Switch>
+      <Route path="/home/:email">
+          <Home token={token} />
+        </Route>
         <Route path="/login">
           <LoginPage setToken = {setToken}/>
         </Route>
@@ -28,9 +32,7 @@ function App() {
           <SignUpPage />
         </Route>
       </Switch>
-      {/* {
-        token ? <Navbar/> : <LoginPage setToken = {setToken}/>
-      } */}
+      
       {/* <Profile cover="./material/cover2.jpg" name={name} userName={userName} bio={bio} ></Profile>
       <WriteTweet/>
       <PostCard name={name} userName={userName} date={Math.floor(((Date.now()-date)/3600000)/24)} postText={text} /> */}

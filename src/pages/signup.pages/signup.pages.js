@@ -4,19 +4,7 @@ import Logo from './logo.png'
 import './signup.styles.css'
 import 'antd/dist/antd.css'
 import axios from 'axios';
-
-
-
-async function loginUser(credentials) {
-    return fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    })
-        .then(data => data.json())
-}
+import { useHistory } from "react-router-dom";
 
 
 
@@ -27,6 +15,7 @@ export default function SignUpPage({ setToken }) {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [username, setUsername] = useState("");
+    let history = useHistory();
 
     function validateForm() {
         return (
@@ -41,7 +30,9 @@ export default function SignUpPage({ setToken }) {
         let formData = {"email" : email , "username": username, "password" : password}
         axios.post('http://twitterapifinal.pythonanywhere.com/account/register', formData).then(
             res => {
-                console.log(res)
+                if(res.status==200){
+                    history.push('/login')
+                }
             }
         )
     }

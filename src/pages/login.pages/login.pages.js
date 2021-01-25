@@ -5,6 +5,7 @@ import './login.styles.css'
 import 'antd/dist/antd.css'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 
 
@@ -14,6 +15,7 @@ import { Link } from 'react-router-dom';
 export default function LoginPage({ setToken }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    let history = useHistory();
 
     function validateForm() {
         return email.length > 0 && password.length > 0;
@@ -24,7 +26,10 @@ export default function LoginPage({ setToken }) {
         let formData = {"email" : email , "password" : password}
         axios.post('http://twitterapifinal.pythonanywhere.com/account/login/', formData).then(
             res => {
-                setToken(res.data.access)
+                console.log(res)
+                if (res.status ==200){
+                    history.push("/home/"+email)
+                }
             }
         )
     }
