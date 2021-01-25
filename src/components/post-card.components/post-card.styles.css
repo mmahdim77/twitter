@@ -1,47 +1,83 @@
 .postCard{
     display: flex;
     flex-direction: column;
-    width: 568px;
+    width: 598px;
     padding: 5px;
-    color: aqua;
+    border :1px solid rgb(235, 228, 240);
+    margin: 0px auto;
 }
-.cardBody{
+.postCard .cardBody{
     display: flex;
     flex-direction: row;
     width: 100%;
-    color: antiquewhite;
 }
-.rightCol{
+.postCard .rightCol{
     display: flex;
     flex-direction: column;
     padding: 5px;
-    color: blue;
     width: 100%;
 }
-.avatar{
-    width: 49px;
-    color: brown;
-}
-.avatar>img{
+.postCard .avatar{
     width: 49px;
 }
-.header{
+.postCard .avatar>img{
+    width: 49px;
+}
+.postCard .header{
     display: flex;
     justify-content: space-between;
-    color: yellow;
+    margin: 0px 10px;
 }
-.header>.details{
+.postCard .header>.details{
     display: flex;
     justify-content: left;
-    color: green;
+    back: green;
 }
-.header>.setting{
+.postCard .header>.setting{
     display: flex;
     justify-content: right;
-    color: wheat;
 }
-.post{
+.postCard .post{
     display: flex;
     flex-direction: column;
-    color: magenta;
+    color: black;
+    padding: 10px 10px;
+    text-align: left;
 }
+.postCard .details>*{
+    padding: 0px 2px;
+    color: rgb(91, 112, 131) ;
+}
+.postCard .name{
+    padding-left: 0px;
+    font-weight: 700;
+    color: black;
+}
+.postCard  .actionBar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.postCard .liked-header{
+    display: flex;
+    flex-direction: left;
+    justify-content: left;
+    padding-left: 50px;
+    align-items: center;
+}
+.postCard .liked-header > *{
+    margin:0px 12px;
+}
+.postCard .media > *{
+    border-radius: 16px;
+    border :1px solid rgb(235, 228, 240);
+    width: 100%;
+    margin: 10px auto;
+    max-height: 300px;
+    object-fit: cover ;
+
+}
+.postCard actionBar > *{
+    color: #5b708300;
+}
+

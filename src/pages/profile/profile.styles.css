@@ -1,0 +1,60 @@
+.profile{
+    width: 598px;
+    margin: 0 auto;
+    padding: 5px;
+}
+.profile .cover img{
+    width: 100%;
+    margin: 10px auto;
+    max-height: 199.33px;
+    object-fit: cover ;
+
+
+}
+.profile .avatar{
+    position:absolute;
+    top:150px;
+    margin: 0px 15px;;
+}
+.profile .details{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.profile .actionBar{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 70px;
+}
+.profile .followBtn{
+    width: 90px;
+}
+.profile .followBtn > button{
+    border-color: #53a5e4;
+    color: #53a5e4;
+    font-weight: bolder;
+
+}
+.profile .biography{
+    display: flex;
+    flex-direction: column;
+}
+.profile .biography>*{
+    width: 100%;
+    text-align: left;
+}
+.profile .biography> .name{
+    font-size: 19px;
+    font-weight: 800;
+}
+.profile .biography> .userName{
+    color: #5b7083;
+    font-size: 15px;
+    font-weight: 400;
+}
+.profile .biography> .bio{
+    font-size: 15px;
+    font-weight: 400;
+}
