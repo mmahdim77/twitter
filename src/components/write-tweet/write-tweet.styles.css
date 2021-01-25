@@ -1,0 +1,36 @@
+.writeTweet{
+    display:flex;
+    flex-direction: row;
+    width: 598px;
+    padding: 5px;
+    border :1px solid rgb(235, 228, 240);
+    margin: 0 auto;
+}
+.writeTweet .mainBody{
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+}
+.writeTweet .textBox{
+    width:100%;
+}
+.writeTweet TextArea{
+    font-size: 19px;
+    border-bottom: 1px solid rgb(235, 228, 240);
+    color: black;
+    
+}
+.writeTweet TextArea::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #5d7184;
+}
+
+.writeTweet .footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px;
+}
+.writeTweet PermMediaIcon{
+    color: yellow; 
+}
