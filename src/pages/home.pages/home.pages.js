@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import Navbar from '../../components/navbar.components/navbar'
+import Profile from '../../pages/profile/profile.pages'
 import { Link , useParams} from 'react-router-dom'
 
 const Home = ({token}) => {
@@ -8,7 +9,6 @@ const Home = ({token}) => {
     return (
         <div className="home">
             <Navbar></Navbar>
-            {token}
         </div>
     )
 }
