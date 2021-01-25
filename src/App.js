@@ -13,6 +13,7 @@ import Home from './pages/home.pages/home.pages'
 
 function App() {
   const [token, setToken] = useState(null);
+  const [closed, setClosed] = useState(false);
   const list = ['home', 'tweets', 'notification']
   const text = "Voluptate dolore fugiat ea ipsum anim eu magna eu labore."
   const name = "mohammad mahdi"
@@ -26,10 +27,10 @@ function App() {
           <Home token={token} />
         </Route>
         <Route path="/login">
-          <LoginPage setToken={setToken} />
+          <LoginPage setToken={setToken} closed={closed}/>
         </Route>
-        <Route path="/signup">
-          <SignUpPage />
+        <Route path="/signup"  >
+          <SignUpPage fromLogin={false} setClosed={setClosed}/>
         </Route>
       </Switch>
 

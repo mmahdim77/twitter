@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Input, Space } from 'antd';
+import { Input, Space } from 'antd';
 import Logo from './logo.png'
 import './signup.styles.css'
 import 'antd/dist/antd.css'
@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 
 
 
-export default function SignUpPage({ setToken }) {
+export default function SignUpPage({ fromLogin, setClosed }) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -27,11 +27,17 @@ export default function SignUpPage({ setToken }) {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        let formData = {"email" : email , "username": username, "password" : password}
+        let formData = { "email": email, "username": username, "password": password }
+        console.log(email)
+        console.log(password)
+        console.log(username)
         axios.post('http://twitterapifinal.pythonanywhere.com/account/register', formData).then(
             res => {
-                if(res.status==200){
-                    history.push('/login')
+                if (res.status == 200) {
+                    if (!fromLogin) { history.push('/login') }
+                    else{
+                        setClosed(true)
+                    }
                 }
             }
         )
@@ -54,8 +60,8 @@ export default function SignUpPage({ setToken }) {
                     <Input className="input" type="email" required value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
                 </label>
                 <Space className="sp" direction="vertical">
-                    <Input.Password className="space" type="password" required value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
-                    <Input.Password className="space" type="password" required value={confirmPassword} placeholder="ConfirmPassword" onChange={(e) => setConfirmPassword(e.target.value)}/>
+                    <Input.Password className="space" type="password" required value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+                    <Input.Password className="space" type="password" required value={confirmPassword} placeholder="ConfirmPassword" onChange={(e) => setConfirmPassword(e.target.value)} />
                 </Space>
                 <div>
                     <button placeholder="Password" type="submit" disabled={!validateForm()}> Sign up </button>
