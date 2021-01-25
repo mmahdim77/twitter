@@ -1,7 +1,7 @@
 .postCard{
     display: flex;
     flex-direction: column;
-    width: 598px;
+    width: 100%;
     padding: 5px;
     border :1px solid rgb(235, 228, 240);
     margin: 0px auto;

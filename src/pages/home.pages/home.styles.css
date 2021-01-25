@@ -1,0 +1,10 @@
+.home{
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+.home .rightCol{
+    display: flex;
+    flex-direction: column;
+    width: 598px;
+}
