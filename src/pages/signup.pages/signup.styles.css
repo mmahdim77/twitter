@@ -60,3 +60,24 @@
     width: 470px;
     text-align: left;
 }
+@media screen and (max-width: 1366px) {
+    .Signup .input {
+        width:100%;
+        max-width: 485px;
+
+    }
+    .Signup label {
+        width:90vw;
+        max-width: 485px;
+
+    }
+    .Signup Button {
+        width: 90vw;
+        max-width: 485px;
+    }
+    .Signup .space {
+        max-width: 485px;
+        width: 90vw;
+    }
+
+  }

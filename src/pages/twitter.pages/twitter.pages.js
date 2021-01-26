@@ -16,7 +16,7 @@ export default function TwitterHome() {
 
             <div className="right">
                 <div >
-                    <img className="img" src={Logo} height='36px' width='45px'>
+                    <img className="logo" src={Logo} height='36px' width='45px'>
                     </img>
                 </div>
                 <div className="text">

@@ -35,7 +35,7 @@
     text-align: left;
 }
 
-.float-container .right .img{
+.float-container .right .logo{
     margin-right: 340px;
     margin-bottom: 20px;
 }
@@ -87,3 +87,18 @@
     background-color:rgb(25, 139, 216);
     transition: 0.4s;
 }
+@media screen and (max-width: 1366px) {
+    .float-container .left{
+        display:none;
+    }
+    .float-container .right .text{
+        width: 80%;
+        text-align: center;
+    }
+    .float-container .right .txt{
+        text-align: center;
+    }
+    .float-container .right .logo{
+        margin: 0 auto;
+    }
+  }

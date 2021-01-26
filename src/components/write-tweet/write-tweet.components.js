@@ -19,18 +19,27 @@ const { TextArea } = Input;
 
 const WriteTweet = ({token}) => {
     const [value, setValue] = useState("");
+    const [writeTweetEn, setWriteTweetEn] = useState(true);
     const onChange = ({ target: { value } }) => {
+        if (value.length>0)
+            setWriteTweetEn(false)
+        else
+            setWriteTweetEn(true)
         setValue(value)
       };
     const sendTweet =()=>{
         let formData = {text : value}
         console.log(formData)
         console.log(token)
-        axios.post('http://twitterapifinal.pythonanywhere.com/twitt/create/', formData , {headers : {'Authorization' : 'Bearer  '+token , 'Content-Type': 'application/x-www-form-urlencoded'}}).then(
-            res => {
-                console.log(res)
-            }
-        ).catch(err=>console.log(err))
+        if(value.length>0)
+            axios.post('http://twitterapifinal.pythonanywhere.com/twitt/create/', formData , {headers : {'Authorization' : 'Bearer  '+token , 'Content-Type': 'application/x-www-form-urlencoded'}}).then(
+                res => {
+                    console.log(res)
+                }
+            ).catch(err=>console.log(err))
+        else{
+            
+        }
     }
     return (
         <div className="writeTweet">
@@ -54,7 +63,7 @@ const WriteTweet = ({token}) => {
                         <PermMediaIcon style={{ fontSize:25 , color:"#1da1f2"}} ></PermMediaIcon>
                     </div>
                     <div className="tweetBtn">
-                        <Button type="primary" shape="round" size={"large"} onClick={sendTweet}> Tweet </Button>
+                        <Button type="primary" shape="round" size={"large"} onClick={sendTweet} disabled={writeTweetEn}> Tweet </Button>
                     </div>
 
                 </div>
