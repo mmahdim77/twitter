@@ -95,7 +95,10 @@ const Home = ({token}) => {
     ]
     return (
         <div className="home">
-            <Navbar />
+            <div className ="leftCol">
+                <Navbar />
+                <button>سلام</button>
+            </div>
             <div className="rightCol">
                 <Header route="home"/>
                 <WriteTweet token={token}/>

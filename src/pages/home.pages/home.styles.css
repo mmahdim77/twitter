@@ -8,3 +8,14 @@
     flex-direction: column;
     width: 598px;
 }
+.home .leftCol{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 10px;
+    z-index : 10;
+    margin: 10px;
+    height: 90vh;
+}
