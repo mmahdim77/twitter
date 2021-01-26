@@ -1,9 +1,5 @@
 .Navbar{
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index : 10;
-    margin: 10px;
+    
 }
 .Navbar .image{
     margin: 20px;
@@ -15,7 +11,7 @@
 }
 div .Navbar{
     width: 384px;
-    height: 384px;
+    height: 100vh;
     justify-items: center;
 }
 .Navbar .b{

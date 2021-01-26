@@ -39,6 +39,7 @@ export default function LoginPage({ setToken, isModalOpen, setIsModalOpen }) {
             res => {
                 console.log(res.status)
                 if (res.status === 200) {
+                    setToken(res.data.access)
                     history.push("/home/" + email)
                 }
             }
