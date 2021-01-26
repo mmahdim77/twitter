@@ -4,7 +4,7 @@ import Logo from './logo.png'
 import './login.styles.css'
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
-import SignUpPage from '../signUp.pages/signUp.pages'
+import SignUpPage from '../signup.pages/signup.pages'
 
 
 
