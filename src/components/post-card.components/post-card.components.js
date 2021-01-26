@@ -2,10 +2,11 @@
 import React from 'react';
 import './post-card.styles.css';
 import { Avatar } from 'antd';
-import { UserOutlined , CommentOutlined , RetweetOutlined ,LikeOutlined} from '@ant-design/icons';
+import { UserOutlined , CommentOutlined , RetweetOutlined ,LikeOutlined , EllipsisOutlined} from '@ant-design/icons';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import IconButton from '@material-ui/core/IconButton';
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import { Menu, Dropdown } from 'antd';
 
 // import CustomButton from '../custom-button/custom-button.component'
 // import {useState , useEffect} from 'react';
@@ -25,7 +26,16 @@ const PostCard = ({avatar , name , userName , date , postText , postMedias }) =>
     const comments = () =>{
         console.log("comments")
     }
-    
+    const menu = (id)=>(
+        <Menu>
+          {/* <Menu.Item>
+            <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+              
+            </a>
+          </Menu.Item> */}
+          <Menu.Item danger>delete {id}</Menu.Item>
+        </Menu>
+      );
     return (
         <div className="postCard">
             {
@@ -69,12 +79,10 @@ const PostCard = ({avatar , name , userName , date , postText , postMedias }) =>
                             }
                         </div>
                         <div className="setting">
-                        <IconButton
-                            aria-label="more"
-                            aria-controls="long-menu"
-                            aria-haspopup="true"
-                            // onClick={handleClick}
-                        />
+                            <Dropdown overlay={()=>menu(1)}>
+                                <EllipsisOutlined className="ant-dropdown-link" onClick={e => e.preventDefault()} />
+                            </Dropdown>
+
                         </div>
                     </div>
                     <div className="post">
