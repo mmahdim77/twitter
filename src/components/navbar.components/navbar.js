@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useState} from "react";
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import Logo from './logo.png'
@@ -8,10 +8,19 @@ import { Input, Space, Modal } from 'antd';
 import WriteTweet from '../write-tweet/write-tweet.components'
 
 function Navbar() {
-  const [isVisible, setVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
   const showModal = () => {
-    setVisible(true)
-  };
+    setIsModalOpen(true);
+};
+  const handleOk = () => {
+    setIsModalOpen(false);
+};
+
+const handleCancel = () => {
+    setIsModalOpen(false);
+};
 
 
   return (
@@ -30,13 +39,12 @@ function Navbar() {
           <Button className="b" icon={<UserOutlined />}>Profile</Button>
         </Link>
       </div>
-      <h1>{isVisible ? "hi" : "by"}</h1>
       <div className="button">
         <Link>
-          <Button className="tweet" >Tweet</Button>
+          <Button className="tweet" onClick={showModal} >Tweet</Button>
         </Link>
       </div>
-      <Modal className="modal" width="550px" footer={null} closable={false} visible={isVisible} onOk={handleOk} onCancel={handleCancel}>
+      <Modal className="modal" width="550px" footer={null} closable={false} visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <WriteTweet />
       </Modal>
     </div>
