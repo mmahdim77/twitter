@@ -98,7 +98,7 @@ const Home = ({token}) => {
             <Navbar />
             <div className="rightCol">
                 <Header route="home"/>
-                <WriteTweet/>
+                <WriteTweet token={token}/>
                 {
                     tweets.map(
                         (tweet)=>

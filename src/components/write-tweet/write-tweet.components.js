@@ -4,7 +4,7 @@ import './write-tweet.styles.css';
 import { Avatar } from 'antd';
 import PermMediaIcon from '@material-ui/icons/PermMedia';
 import { DownloadOutlined } from '@ant-design/icons';
-
+import axios from 'axios'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { Button } from 'antd';
 import { UserOutlined , CommentOutlined , RetweetOutlined ,LikeOutlined} from '@ant-design/icons';
@@ -17,12 +17,21 @@ const { TextArea } = Input;
 
 
 
-const WriteTweet = ({avatar , name , userName , date , postText , postMedias }) => {
-    const likedBy =['ali', 'hasan', 'mohsen']
+const WriteTweet = ({token}) => {
     const [value, setValue] = useState("");
     const onChange = ({ target: { value } }) => {
         setValue(value)
       };
+    const sendTweet =()=>{
+        let formData = {text : value}
+        console.log(formData)
+        console.log(token)
+        axios.post('http://twitterapifinal.pythonanywhere.com/twitt/create/', formData , {headers : {'Authorization' : 'Bearer  '+token , 'Content-Type': 'application/x-www-form-urlencoded'}}).then(
+            res => {
+                console.log(res)
+            }
+        ).catch(err=>console.log(err))
+    }
     return (
         <div className="writeTweet">
             <div className="avatar">
@@ -45,7 +54,7 @@ const WriteTweet = ({avatar , name , userName , date , postText , postMedias }) 
                         <PermMediaIcon style={{ fontSize:25 , color:"#1da1f2"}} ></PermMediaIcon>
                     </div>
                     <div className="tweetBtn">
-                        <Button type="primary" shape="round" size={"large"}> Tweet </Button>
+                        <Button type="primary" shape="round" size={"large"} onClick={sendTweet}> Tweet </Button>
                     </div>
 
                 </div>
