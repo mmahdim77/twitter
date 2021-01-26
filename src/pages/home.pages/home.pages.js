@@ -118,7 +118,14 @@ const Home = ({ token }) => {
             <div className="leftCol">
                 <Navbar />
                 <div>
-                    <Dropdown className="dropdown" placement="topCenter" overlay={menu} trigger={['click']}>
+                    <Dropdown 
+                    id="1"
+                    className="dropdown" 
+                    placement="topCenter" 
+                    overlay={menu} 
+                    trigger={['click']}
+                    getPopupContainer={trigger => trigger.parentNode}
+                    >
                         <Button className="logout" >
                             Log out
                         </Button>
