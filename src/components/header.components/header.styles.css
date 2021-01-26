@@ -9,7 +9,7 @@
     background-color: white;
 
 }
-.pageHeader .home{
+.pageHeader .homeHeader{
     
     display: flex;
     flex-direction: row;
@@ -19,7 +19,7 @@
     margin-left: 10px;
 
 }
-.pageHeader .home>h2{
+.pageHeader .homeHeader>h2{
     font-weight: 800;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './App.css';
 import LoginPage from './pages/login.pages/login.pages'
-import SignUpPage from './pages/signUp.pages/signUp.pages'
+import SignUpPage from './pages/signup.pages/signup.pages'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Navbar from './components/navbar.components/navbar'
 import PostCard from './components/post-card.components/post-card.components'

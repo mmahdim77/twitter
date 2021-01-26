@@ -8,7 +8,7 @@ const Header = ({route}) => {
         <div className="pageHeader">
             {
                 route=="home" ?
-                <div className="home">
+                <div className="homeHeader">
                     <h2>Home</h2>
                 </div>
                 :
