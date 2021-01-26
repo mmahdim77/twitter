@@ -15,6 +15,7 @@ export default function SignUpPage({ fromLogin, setIsModalOpen }) {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [username, setUsername] = useState("");
+    const [err, setErr] = useState(false);
     let history = useHistory();
 
     function validateForm() {
@@ -27,7 +28,7 @@ export default function SignUpPage({ fromLogin, setIsModalOpen }) {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        let formData = { "email": email, "username": username, "password": password }
+        let formData = { "email": email,"password": password, "username": username  }
         console.log(email)
         console.log(password)
         console.log(username)
@@ -40,7 +41,7 @@ export default function SignUpPage({ fromLogin, setIsModalOpen }) {
                     }
                 }
             }
-        )
+        ).catch(err=>setErr(true))
     }
 
     return (
@@ -52,6 +53,11 @@ export default function SignUpPage({ fromLogin, setIsModalOpen }) {
             <h2>
                 Create your account
             </h2>
+            {
+                err ? <div className="err">
+                    The email or username  is already taken.
+                </div> : null
+            }
             <form onSubmit={handleSubmit}>
                 <label>
                     <Input className="input" value={username} placeholder="Username" onChange={(e) => setUsername(e.target.value)} />

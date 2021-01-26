@@ -10,6 +10,7 @@
     margin-bottom: 20px;
     border-radius: 50px;
     border: none;
+    outline: none;
 }
 
 .Login img {
