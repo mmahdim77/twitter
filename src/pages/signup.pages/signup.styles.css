@@ -9,6 +9,7 @@
     margin-top: 20px;
     margin-bottom: 20px;
     border-radius: 50px;
+    border: none;
     outline: none;
 }
 
@@ -52,4 +53,10 @@
 
 .Signup span {
     margin: 7px;
+}
+
+.Signup .err{
+    color: #e52f61;
+    width: 470px;
+    text-align: left;
 }

@@ -1,4 +1,5 @@
-import React, { useState , useEffect} from "react";
+import React from "react";
+import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import Logo from './logo.png'
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
@@ -20,14 +21,20 @@ function Navbar() {
         </img>
       </div>
       <div className="button">
-        <Button className="b"  icon={<HomeOutlined />}>Home</Button>
+        <Link>
+          <Button className="b" icon={<HomeOutlined />}>Home</Button>
+        </Link>
       </div>
       <div className="button">
-        <Button className="b" icon={<UserOutlined />}>Profile</Button>
+        <Link>
+          <Button className="b" icon={<UserOutlined />}>Profile</Button>
+        </Link>
       </div>
       <h1>{isVisible ? "hi" : "by"}</h1>
       <div className="button">
-        <Button className="tweet" onClick={showModal} >Tweet</Button>
+        <Link>
+          <Button className="tweet" >Tweet</Button>
+        </Link>
       </div>
       <Modal className="modal" width="550px" footer={null} closable={false} visible={isVisible} onOk={handleOk} onCancel={handleCancel}>
         <WriteTweet />

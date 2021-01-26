@@ -8,12 +8,13 @@ import PostCard from './components/post-card.components/post-card.components'
 import WriteTweet from './components/write-tweet/write-tweet.components'
 import Profile from './pages/profile.pages/profile.pages'
 import Home from './pages/home.pages/home.pages'
+import TwitterHome from './pages/twitter.pages/twitter.pages'
 
 
 
 function App() {
   const [token, setToken] = useState(null);
-  const [closed, setClosed] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const list = ['home', 'tweets', 'notification']
   const text = "Voluptate dolore fugiat ea ipsum anim eu magna eu labore."
   const name = "mohammad mahdi"
@@ -27,10 +28,13 @@ function App() {
           <Home token={token} />
         </Route>
         <Route path="/login">
-          <LoginPage setToken={setToken} closed={closed}/>
+          <LoginPage setToken={setToken} isModalOpen={isModalOpen}  setIsModalOpen={setIsModalOpen}/>
         </Route>
         <Route path="/signup"  >
-          <SignUpPage fromLogin={false} setClosed={setClosed}/>
+          <SignUpPage fromLogin={false}/>
+        </Route>
+        <Route path="/"  >
+          <TwitterHome />
         </Route>
       </Switch>
 

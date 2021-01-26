@@ -8,12 +8,13 @@ import { useHistory } from "react-router-dom";
 
 
 
-export default function SignUpPage({ fromLogin, setClosed }) {
+export default function SignUpPage({ fromLogin, setIsModalOpen }) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [username, setUsername] = useState("");
+    const [err, setErr] = useState(false);
     let history = useHistory();
 
     function validateForm() {
@@ -26,20 +27,20 @@ export default function SignUpPage({ fromLogin, setClosed }) {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        let formData = { "email": email, "username": username, "password": password }
+        let formData = { "email": email,"password": password, "username": username  }
         console.log(email)
         console.log(password)
         console.log(username)
         axios.post('http://twitterapifinal.pythonanywhere.com/account/register', formData).then(
             res => {
-                if (res.status == 200) {
+                if (res.status === 200) {
                     if (!fromLogin) { history.push('/login') }
                     else{
-                        setClosed(true)
+                        setIsModalOpen(false)
                     }
                 }
             }
-        )
+        ).catch(err=>setErr(true))
     }
 
     return (
@@ -51,6 +52,11 @@ export default function SignUpPage({ fromLogin, setClosed }) {
             <h2>
                 Create your account
             </h2>
+            {
+                err ? <div className="err">
+                    The email or username  is already taken.
+                </div> : null
+            }
             <form onSubmit={handleSubmit}>
                 <label>
                     <Input className="input" value={username} placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
