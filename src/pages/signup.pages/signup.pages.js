@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Input, Space } from 'antd';
 import Logo from './logo.png'
 import './signup.styles.css'
-import 'antd/dist/antd.css'
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 

@@ -1,7 +1,6 @@
 
 import React from 'react';
 import './post-card.styles.css';
-import 'antd/dist/antd.css';
 import { Avatar } from 'antd';
 import { UserOutlined , CommentOutlined , RetweetOutlined ,LikeOutlined} from '@ant-design/icons';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
@@ -15,6 +14,16 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 const PostCard = ({avatar , name , userName , date , postText , postMedias }) => {
     const likedBy =['ali', 'hasan', 'mohsen']
     const dateFloor = (Date.now()-new Date(date))/1000
+    const like = () =>{
+        console.log("liked")
+    }
+    const retweet = () =>{
+        console.log("retweeted")
+    }
+    const comments = () =>{
+        console.log("comments")
+    }
+    
     return (
         <div className="postCard">
             {
@@ -68,9 +77,9 @@ const PostCard = ({avatar , name , userName , date , postText , postMedias }) =>
                 </div>
             </div>
             <div className="actionBar">
-                <ChatBubbleOutlineIcon  style={{ fontSize: 19 }}  ></ChatBubbleOutlineIcon>
-                <RetweetOutlined style={{ fontSize: 19 }} />
-                <FavoriteBorderIcon style={{ fontSize: 19 }} ></FavoriteBorderIcon>
+                <ChatBubbleOutlineIcon  style={{ fontSize: 19 }} onClick={comments} ></ChatBubbleOutlineIcon>
+                <RetweetOutlined style={{ fontSize: 19 }} onClick={retweet} />
+                <FavoriteBorderIcon style={{ fontSize: 19 }} onClick={like}></FavoriteBorderIcon>
             </div>
         </div>
     )

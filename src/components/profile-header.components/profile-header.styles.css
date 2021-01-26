@@ -1,0 +1,61 @@
+.profile-header{
+    width: 598px;
+    margin: 0 auto;
+    padding: 5px;
+}
+.profile-header .cover img{
+    width: 100%;
+    margin: 10px auto;
+    max-height: 199.33px;
+    object-fit: cover ;
+
+
+}
+.profile-header .avatar{
+    position:absolute;
+    top:150px;
+    margin: 0px 15px;
+    border: 3px white;
+}
+.profile-header .details{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.profile-header .actionBar{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: 70px;
+}
+.profile-header .followBtn{
+    width: 90px;
+}
+.profile-header .followBtn > button{
+    border-color: #53a5e4;
+    color: #53a5e4;
+    font-weight: bolder;
+
+}
+.profile-header .biography{
+    display: flex;
+    flex-direction: column;
+}
+.profile-header .biography>*{
+    width: 100%;
+    text-align: left;
+}
+.profile-header .biography> .name{
+    font-size: 19px;
+    font-weight: 800;
+}
+.profile-header .biography> .userName{
+    color: #5b7083;
+    font-size: 15px;
+    font-weight: 400;
+}
+.profile-header .biography> .bio{
+    font-size: 15px;
+    font-weight: 400;
+}

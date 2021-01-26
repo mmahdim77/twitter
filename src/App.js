@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import './App.css';
 import LoginPage from './pages/login.pages/login.pages'
-import SignUpPage from './pages/signUp.pages/signup.pages'
+import SignUpPage from './pages/signUp.pages/signUp.pages'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Navbar from './components/navbar.components/navbar'
 import PostCard from './components/post-card.components/post-card.components'
 import WriteTweet from './components/write-tweet/write-tweet.components'
-import Profile from './pages/profile/profile.pages'
+import Profile from './pages/profile.pages/profile.pages'
 import Home from './pages/home.pages/home.pages'
 
 

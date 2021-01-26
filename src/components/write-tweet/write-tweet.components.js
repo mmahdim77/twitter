@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import './write-tweet.styles.css';
-import 'antd/dist/antd.css';
 import { Avatar } from 'antd';
 import PermMediaIcon from '@material-ui/icons/PermMedia';
 import { DownloadOutlined } from '@ant-design/icons';

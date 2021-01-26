@@ -8,18 +8,17 @@ import PostCard from '../../components/post-card.components/post-card.components
 import Header from '../../components/header.components/header.components'
 import Profile from '../profile.pages/profile.pages'
 
-const Home = ({token}) => {
+const Status = ({token}) => {
     // let { email } = useParams();
-
-    const tweets = [
-        {
-            name: 'kalim', 
-            userName:'@kalim', 
-            avatar:'./material/avatar1.png', 
-            date: 'January 10, 2021 03:24:00',
-            postText: 'Eiusmod in elit incididunt ea Lorem nulla enim ad.',
-            postMedias: './material/cover.jpg',
-        },
+    const mainTweet = {
+        name: 'kalim', 
+        userName:'@kalim', 
+        avatar:'./material/avatar1.png', 
+        date: 'January 10, 2021 03:24:00',
+        postText: 'Eiusmod in elit incididunt ea Lorem nulla enim ad.',
+        postMedias: './material/cover.jpg',
+    }
+    const comments = [
         {
             name: 'mamad', 
             userName:'@mamad', 
@@ -94,13 +93,20 @@ const Home = ({token}) => {
         },
     ]
     return (
-        <div className="home">
-            <Navbar />
+        <div className="status">
+            <Navbar/>
             <div className="rightCol">
                 <Header route="home"/>
+                <PostCard 
+                            avatar={mainTweet.avatar}  
+                            name={mainTweet.name}  
+                            userName={mainTweet.userName}  
+                            date={mainTweet.date}  
+                            postText={mainTweet.postText}  
+                            postMedias={mainTweet.postMedias}  />
                 <WriteTweet/>
                 {
-                    tweets.map(
+                    comments.map(
                         (tweet)=>
                          (
                          <PostCard 

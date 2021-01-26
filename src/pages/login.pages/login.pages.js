@@ -2,11 +2,10 @@ import React, { useState,useEffect } from "react";
 import { Input, Space, Modal } from 'antd';
 import Logo from './logo.png'
 import './login.styles.css'
-import 'antd/dist/antd.css'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
-import SignUpPage from '../signup.pages/signup.pages'
+import SignUpPage from '../signUp.pages/signUp.pages'
 
 
 
