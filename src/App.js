@@ -14,6 +14,7 @@ import TwitterHome from './pages/twitter.pages/twitter.pages'
 
 function App() {
   const [token, setToken] = useState(null);
+  const [myUser, setMyUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const list = ['home', 'tweets', 'notification']
   const text = "Voluptate dolore fugiat ea ipsum anim eu magna eu labore."
@@ -23,12 +24,16 @@ function App() {
   const date = new Date('January 23, 2020 03:24:00')
   return (
     <div className="App">
+
       <Switch>
-        <Route path="/home/:email">
-          <Home token={token} />
+        <Route path="/home">
+          <Home token={token} myUser={myUser} />
+        </Route>
+        <Route path="/profile/:username">
+          <Profile token={token} />
         </Route>
         <Route path="/login">
-          <LoginPage setToken={setToken} isModalOpen={isModalOpen}  setIsModalOpen={setIsModalOpen}/>
+          <LoginPage setToken={setToken} isModalOpen={isModalOpen}  setIsModalOpen={setIsModalOpen} setTheUser={setMyUser} />
         </Route>
         <Route path="/signup"  >
           <SignUpPage fromLogin={false}/>

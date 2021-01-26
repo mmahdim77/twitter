@@ -1,5 +1,13 @@
 .Navbar{
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 10px;
+    z-index : 10;
+    margin: 10px;
+    height: 90vh;
 }
 .Navbar .image{
     margin: 20px;
@@ -44,4 +52,53 @@ div .Navbar{
 .Navbar .tweet:hover{
     background-color:rgb(25, 139, 216);
     transition: 0.4s;
+}
+
+.Navbar .down-row .logout{
+    outline: none;
+    border: none;
+    border-radius: 50px;
+    height: 50px;
+    width: 150px;
+    justify-content: space-between;
+    padding: 0px;
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+}
+
+.Navbar .down-row .logout:hover{
+    background-color:#daeefc;
+}
+.avatar-user .avatar{
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+}
+
+.ant-dropdown-menu {
+    border-radius: 16px !important;
+    width: 300px;
+    padding: 20px;
+}
+
+.Navbar .menu{
+    outline: none;
+}
+
+.avatar-user{
+    display: flex;
+    flex-direction: row;
+}
+
+.avatar-user .container{
+    padding: 5px;
+}
+
+.avatar-user .name{
+    font-weight: bold;
+}
+
+.avatar-user .username{
+
 }

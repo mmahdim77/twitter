@@ -55,7 +55,7 @@ const PostCard = ({avatar , name , userName , date , postText , postMedias }) =>
                     <div className="header">
                         <div className="details">
                             <span className="name">{name}</span>
-                            <span className="username">{userName}</span>
+                            <span className="username">@{userName}</span>
                             {
                                 date!='' ?
                                     <span className="date">

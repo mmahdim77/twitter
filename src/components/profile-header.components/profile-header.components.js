@@ -19,15 +19,22 @@ const { TextArea } = Input;
 
 
 const ProfileHeader = ({cover, avatar , name , userName , bio }) => {
-    const likedBy =['ali', 'hasan', 'mohsen']
+    const noImage = "./material/no-cover.png"
 
     return (
         <div className="profile-header">
             <div className="cover">
-                <img src={cover}></img>
+                <img src={cover ? cover : noImage}></img>
             </div>
             <div className="avatar">
-                <Avatar size={142} icon={<UserOutlined />} />
+                {
+                    avatar ? 
+                    <Avatar size={142} src={avatar} />
+                    :
+                    <Avatar size={142} icon={<UserOutlined />} />
+
+
+                }
             </div>
             <div className="details">
                 <div className="actionBar">

@@ -10,7 +10,7 @@ import SignUpPage from '../signup.pages/signup.pages'
 
 
 
-export default function LoginPage({ setToken, isModalOpen, setIsModalOpen }) {
+export default function LoginPage({ setToken, isModalOpen, setIsModalOpen , setTheUser }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [err, setErr] = useState(false);
@@ -39,8 +39,15 @@ export default function LoginPage({ setToken, isModalOpen, setIsModalOpen }) {
             res => {
                 console.log(res.status)
                 if (res.status === 200) {
-                    setToken(res.data.access)
-                    history.push("/home/" + email)
+                    console.log(res.data.access)
+                    axios.get('http://twitterapifinal.pythonanywhere.com/account/myprofile/' , {headers : {'Authorization' : 'Bearer  '+res.data.access}}).then(
+                        response => {
+                            console.log(response.data)
+                            setTheUser(response.data)
+                            setToken(res.data.access)
+                            history.push("/home/" + email)
+                        }
+                    )
                 }
             }
         ).catch(err=>setErr(true))

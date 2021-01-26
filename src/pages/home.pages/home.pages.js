@@ -1,5 +1,6 @@
 
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
+import axios from 'axios';
 import './home.styles.css';
 import { Button, Avatar, Menu, Dropdown } from 'antd';
 import Navbar from '../../components/navbar.components/navbar'
@@ -7,30 +8,10 @@ import { Link, useParams } from 'react-router-dom'
 import WriteTweet from '../../components/write-tweet/write-tweet.components'
 import PostCard from '../../components/post-card.components/post-card.components'
 import Header from '../../components/header.components/header.components'
-import Profile from '../profile.pages/profile.pages'
-import { BorderAllRounded } from '@material-ui/icons';
 
-const Home = ({ token }) => {
-    // let { email } = useParams();
-    const menu = (
-        <Menu>
-            <div className="avatar-user" >
-                <Avatar className="avatar" />
-                <div className="container">
-                    <div className="name" >
-                        folani
-                    </div>
-                    <div className="username" >
-                        @folani
-                    </div>
-                </div>
-            </div>
-            <Menu.Divider />
-            <Menu.Item className="menu"><Link to="/">
-                Log out
-            </Link></Menu.Item>
-        </Menu>
-    );
+
+const Home = ({ token , myUser }) => {
+    const [tweetListObj, setTweetList] = useState(null);
     const tweets = [
         {
             name: 'kalim',
@@ -113,41 +94,39 @@ const Home = ({ token }) => {
             postMedias: './material/cover2.jpg',
         },
     ]
+    useEffect(() => {
+        axios.get('http://twitterapifinal.pythonanywhere.com/twitt/list/' , {headers : {'Authorization' : 'Bearer  '+token}}).then(
+                        res => {
+                            console.log(res.data)
+                            setTweetList (res.data)
+                        }
+                    )
+    }, [])
     return (
         <div className="home">
             <div className="leftCol">
-                <Navbar />
-                <div>
-                    <Dropdown 
-                    id="1"
-                    className="dropdown" 
-                    placement="topCenter" 
-                    overlay={menu} 
-                    trigger={['click']}
-                    getPopupContainer={trigger => trigger.parentNode}
-                    >
-                        <Button className="logout" >
-                            Log out
-                        </Button>
-                    </Dropdown>
-                </div>
+                <Navbar username={myUser.username} />
             </div>
             <div className="rightCol">
                 <Header route="home" />
                 <WriteTweet token={token} />
                 {
-                    tweets.map(
+                    tweetListObj ?
+                    tweetListObj.results.map(
                         (tweet) =>
                         (
                             <PostCard
-                                avatar={tweet.avatar}
-                                name={tweet.name}
-                                userName={tweet.userName}
+                                avatar={tweet.user.picture}
+                                name={tweet.user.name}
+                                userName={tweet.user.username}
                                 date={tweet.date}
-                                postText={tweet.postText}
-                                postMedias={tweet.postMedias} />
+                                postText={tweet.text}
+                                postMedias={tweet.image} />
                         )
+                        
                     )
+                    :
+                    <div></div>
                 }
             </div>
 

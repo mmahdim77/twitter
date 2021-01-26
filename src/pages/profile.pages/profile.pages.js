@@ -1,5 +1,6 @@
 
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
+import axios from 'axios';
 import './profile.styles.css';
 import 'antd/dist/antd.css';
 import { Avatar } from 'antd';
@@ -13,16 +14,50 @@ import { UserOutlined , CommentOutlined , RetweetOutlined ,LikeOutlined} from '@
 // import {useState , useEffect} from 'react';
 // import axios from 'axios';
 import { Input } from 'antd';
+import Navbar from '../../components/navbar.components/navbar'
+import Header from '../../components/header.components/header.components'
+import { useParams } from "react-router-dom";
+
 
 const { TextArea } = Input;
 
 
 
-const Profile = ({cover, avatar , name , userName , bio }) => {
+const Profile = ({token}) => {
+    let { username } = useParams();
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        axios.get('http://twitterapifinal.pythonanywhere.com/account/profile/'+username , {headers : {'Authorization' : 'Bearer  '+ token}}).then(
+            res => {
+                console.log(res.data)
+                setUser(res.data)
+            }
+        )
+    }, [])
 
     return (
         <div className="profile">
-            
+            <div className="left-col">
+                <Navbar/>
+            </div>
+            {
+                user?
+                <div className="right-col">
+                    <Header route="profile" name={user.name} numOfTweets ="50"/>
+                    <ProfileHeader 
+                        avatar={user.picture}
+                        cover={user.cover}
+                        name={user.name}
+                        userName={user.username}
+                        created_at={user.created_at} 
+                    />
+                </div>
+                :
+                <div></div>
+                
+
+            }
         </div>
     )
 }

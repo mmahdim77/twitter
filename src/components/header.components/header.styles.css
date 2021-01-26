@@ -24,3 +24,38 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 }
+.pageHeader .profileHeader>h2{
+    font-weight: 800;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.pageHeader .profileHeader{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+.pageHeader .profileHeader>.user-header-detail{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    text-align: left;
+    margin: auto 0px;
+    
+}
+
+.pageHeader .profileHeader>.user-header-detail>*{
+    line-height:1;
+    margin: 0px;
+
+}
+.pageHeader .profileHeader>.user-header-detail>h2{
+    font-weight: 800;
+    font-size: 19px;
+
+}
+.pageHeader .profileHeader>.back{
+    display: flex;
+    vertical-align: middle;
+    margin:auto 0px;
+    margin-right:10px;
+    margin-left:10px;
+}

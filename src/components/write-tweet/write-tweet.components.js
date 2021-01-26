@@ -19,6 +19,8 @@ const { TextArea } = Input;
 
 const WriteTweet = ({token}) => {
     const [value, setValue] = useState("");
+    const [image, setImage] = useState(null);
+    const [video, setVideo] = useState(null);
     const [writeTweetEn, setWriteTweetEn] = useState(true);
     const onChange = ({ target: { value } }) => {
         if (value.length>0)
@@ -28,11 +30,11 @@ const WriteTweet = ({token}) => {
         setValue(value)
       };
     const sendTweet =()=>{
-        let formData = {text : value}
+        let formData = {text : value , image : image , video: video }
         console.log(formData)
         console.log(token)
         if(value.length>0)
-            axios.post('http://twitterapifinal.pythonanywhere.com/twitt/create/', formData , {headers : {'Authorization' : 'Bearer  '+token , 'Content-Type': 'application/x-www-form-urlencoded'}}).then(
+            axios.post('http://twitterapifinal.pythonanywhere.com/twitt/create/', formData , {headers : {'Authorization' : 'Bearer  '+token}}).then(
                 res => {
                     console.log(res)
                 }
