@@ -37,3 +37,8 @@ div .Navbar{
     justify-items: center;
     background-color: rgb(28, 164, 252);
 }
+
+.Navbar .tweet:hover{
+    background-color:rgb(25, 139, 216);
+    transition: 0.4s;
+}
