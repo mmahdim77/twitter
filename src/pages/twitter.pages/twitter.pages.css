@@ -1,0 +1,10 @@
+.float-container {
+    display: flex !important;
+    height: 100vh;
+    
+    
+}
+.column {
+    flex: 50%;
+    
+}

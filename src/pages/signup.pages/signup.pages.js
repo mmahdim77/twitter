@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 
 
 
-export default function SignUpPage({ fromLogin, setClosed }) {
+export default function SignUpPage({ fromLogin, setIsModalOpen }) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -36,7 +36,7 @@ export default function SignUpPage({ fromLogin, setClosed }) {
                 if (res.status == 200) {
                     if (!fromLogin) { history.push('/login') }
                     else{
-                        setClosed(true)
+                        setIsModalOpen(false)
                     }
                 }
             }

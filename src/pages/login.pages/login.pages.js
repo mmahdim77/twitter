@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Input, Space, Modal } from 'antd';
 import Logo from './logo.png'
 import './login.styles.css'
@@ -12,31 +12,26 @@ import SignUpPage from '../signup.pages/signup.pages'
 
 
 
-export default function LoginPage({ setToken,closed }) {
+export default function LoginPage({ setToken, isModalOpen, setIsModalOpen }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [err, setErr] = useState(false);
     let history = useHistory();
 
     function validateForm() {
         return email.length > 0 && password.length > 0;
     }
-    useEffect(() => {
-        if(closed){
-            setIsModalVisible(false);
-        }
-    }, [closed])
 
     const showModal = () => {
-        setIsModalVisible(true);
+        setIsModalOpen(true);
     };
 
     const handleOk = () => {
-        setIsModalVisible(false);
+        setIsModalOpen(false);
     };
 
     const handleCancel = () => {
-        setIsModalVisible(false);
+        setIsModalOpen(false);
     };
 
     const handleSubmit = async e => {
@@ -44,12 +39,12 @@ export default function LoginPage({ setToken,closed }) {
         let formData = { "email": email, "password": password }
         axios.post('http://twitterapifinal.pythonanywhere.com/account/login/', formData).then(
             res => {
-                console.log(res)
+                console.log(res.status)
                 if (res.status == 200) {
                     history.push("/home/" + email)
                 }
             }
-        )
+        ).catch(err=>setErr(true))
     }
 
     return (
@@ -61,6 +56,11 @@ export default function LoginPage({ setToken,closed }) {
             <h2>
                 Log in to Twitter
             </h2>
+            {
+                err ? <div className="err">
+                    The email and password you entered did not match our records. Please double-check and try again.
+                </div> : null
+            }
             <form onSubmit={handleSubmit}>
                 <label>
                     <Input required type="email" className="input" value={email} placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
@@ -79,8 +79,8 @@ export default function LoginPage({ setToken,closed }) {
                 <span>
                     <Link onClick={showModal}>Sign up for Twitter</Link>
                 </span>
-                <Modal className="modal" width="550px" footer={null} closable={false} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                    <SignUpPage fromLogin={true} />
+                <Modal className="modal" width="550px" footer={null} closable={false} visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                    <SignUpPage fromLogin={true} setIsModalOpen={setIsModalOpen} />
                 </Modal>
             </div>
         </div>
