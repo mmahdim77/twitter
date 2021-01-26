@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Input, Space, Modal } from 'antd';
 import Logo from './logo.png'
 import './login.styles.css'
 import 'antd/dist/antd.css'
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
 import SignUpPage from '../signup.pages/signup.pages'
 
@@ -40,7 +39,7 @@ export default function LoginPage({ setToken, isModalOpen, setIsModalOpen }) {
         axios.post('http://twitterapifinal.pythonanywhere.com/account/login/', formData).then(
             res => {
                 console.log(res.status)
-                if (res.status == 200) {
+                if (res.status === 200) {
                     history.push("/home/" + email)
                 }
             }
@@ -77,7 +76,7 @@ export default function LoginPage({ setToken, isModalOpen, setIsModalOpen }) {
                     Forgot password?
                 </span>
                 <span>
-                    <Link onClick={showModal}>Sign up for Twitter</Link>
+                    <a onClick={showModal}>Sign up for Twitter</a>
                 </span>
                 <Modal className="modal" width="550px" footer={null} closable={false} visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                     <SignUpPage fromLogin={true} setIsModalOpen={setIsModalOpen} />
