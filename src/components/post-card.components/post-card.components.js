@@ -5,6 +5,8 @@ import { Avatar } from 'antd';
 import { UserOutlined , CommentOutlined , RetweetOutlined ,LikeOutlined} from '@ant-design/icons';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
+import IconButton from '@material-ui/core/IconButton';
+
 // import CustomButton from '../custom-button/custom-button.component'
 // import {useState , useEffect} from 'react';
 // import axios from 'axios';
@@ -66,7 +68,14 @@ const PostCard = ({avatar , name , userName , date , postText , postMedias }) =>
 
                             }
                         </div>
-                        <div className="setting"></div>
+                        <div className="setting">
+                        <IconButton
+                            aria-label="more"
+                            aria-controls="long-menu"
+                            aria-haspopup="true"
+                            // onClick={handleClick}
+                        />
+                        </div>
                     </div>
                     <div className="post">
                         <div className="tweetText">{postText}</div>
