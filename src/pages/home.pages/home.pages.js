@@ -8,7 +8,7 @@ import { Link, useParams } from 'react-router-dom'
 import WriteTweet from '../../components/write-tweet/write-tweet.components'
 import PostCard from '../../components/post-card.components/post-card.components'
 import Header from '../../components/header.components/header.components'
-
+import Search from '../../components/search.components/search.components'
 
 const Home = ({ token , myUser ,refreshToken}) => {
     const [tweetListObj, setTweetList] = useState(null);
@@ -48,7 +48,9 @@ const Home = ({ token , myUser ,refreshToken}) => {
                 }
             </div>
 
-
+            <div>
+                <Search/>
+            </div>
         </div>
     )
 }
