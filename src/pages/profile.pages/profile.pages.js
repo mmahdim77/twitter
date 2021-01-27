@@ -66,6 +66,7 @@ const Profile = ({token, myUser}) => {
                                 console.log(tweet)
                                 return (
                                     <PostCard
+                                        pk ={tweet.id}
                                         avatar={tweet.user.picture}
                                         name={tweet.user.name}
                                         userName={tweet.user.username}
