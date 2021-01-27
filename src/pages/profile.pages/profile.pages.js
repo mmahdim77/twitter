@@ -10,9 +10,6 @@ import ProfileHeader from '../../components/profile-header.components/profile-he
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { Button } from 'antd';
 import { UserOutlined , CommentOutlined , RetweetOutlined ,LikeOutlined} from '@ant-design/icons';
-// import CustomButton from '../custom-button/custom-button.component' 
-// import {useState , useEffect} from 'react';
-// import axios from 'axios';
 import { Input } from 'antd';
 import Navbar from '../../components/navbar.components/navbar'
 import Header from '../../components/header.components/header.components'
@@ -37,11 +34,10 @@ const Profile = ({token, myUser}) => {
     useEffect(() => {
         axios.get('http://twitterapifinal.pythonanywhere.com/account/profile/'+username ).then(
             res => {
-                console.log(res.data)
                 setUser(res.data)
             }
         )
-    }, [])
+    }, [username])
 
     return (
         <div className="profile">
@@ -54,12 +50,14 @@ const Profile = ({token, myUser}) => {
                 <div className="right-col">
                     <Header route="profile" name={user.name} numOfTweets ="50"/>
                     <ProfileHeader 
+                        token = {token}
                         myusername={myusername}
                         avatar={user.picture}
                         cover={user.cover}
                         name={user.name}
                         userName={user.username}
                         created_at={user.created_at} 
+                        email={user.email}
 
                     />
                 </div>

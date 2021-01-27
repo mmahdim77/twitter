@@ -59,3 +59,60 @@
     font-size: 15px;
     font-weight: 400;
 }
+
+
+.profile-header .log{
+    background-color: white;
+    color: rgb(28, 164, 252);
+    width: 50%;
+    height: 50px;
+    border-radius: 50px;
+    border-color: rgb(28, 164, 252) ;;
+    font-weight: bold;
+    font-size: 15px;
+    justify-items: center;
+    margin: 5px;
+}
+
+.profile-headerr .sign{
+    background-color: rgb(28, 164, 252);
+    outline:rgb(28, 164, 252) ;
+    color: white;
+    width: 50%;
+    height: 50px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 15px;
+    justify-items: center;
+    margin: 5px;
+}
+
+.profile-header .log:hover{
+    background-color:#daeefc;
+    transition: 0.4s;
+}
+
+.profile-header .sign:hover{
+    background-color:rgb(25, 139, 216);
+    transition: 0.4s;
+}
+.profile-header .popLogin{
+    background-color: black !important;
+}
+
+.profile-header .unfollow{
+    background-color: #ca2055;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border: none;
+}
+
+.profile-header .follow{
+    color: rgb(28, 164, 252);
+    font-weight: bold;
+}
+
+.profile-header .follow:hover{
+background-color:#f1f9ff;
+}
