@@ -31,7 +31,7 @@ function App() {
 
       <Switch>
         <Route path="/profile/:username/status/:idx">
-          <Statue refreshToken={refreshToken} token={token} myUser={myUser} />
+          <Status refreshToken={refreshToken} token={token} myUser={myUser} />
         </Route>
         <Route path="/home">
           <Home refreshToken={refreshToken} token={token} myUser={myUser} />

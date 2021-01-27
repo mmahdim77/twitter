@@ -14,8 +14,6 @@ import WriteTweet from '../write-tweet/write-tweet.components'
 // import {useState , useEffect} from 'react';
 import axios from 'axios';
 
-
-
 const PostCard = ({ tweet, myUser, token }) => {
     const likedBy = ['ali', 'hasan', 'mohsen']
     const avatar = tweet.user.picture_url
