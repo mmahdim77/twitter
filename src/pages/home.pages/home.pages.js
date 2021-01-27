@@ -10,7 +10,7 @@ import PostCard from '../../components/post-card.components/post-card.components
 import Header from '../../components/header.components/header.components'
 
 
-const Home = ({ token , myUser }) => {
+const Home = ({ token , myUser ,refreshToken}) => {
     const [tweetListObj, setTweetList] = useState(null);
 
     useEffect(() => {
@@ -25,7 +25,7 @@ const Home = ({ token , myUser }) => {
     return (
         <div className="home">
             <div className="leftCol">
-                <Navbar username={myUser.username} />
+                <Navbar myUser={myUser} refreshToken={refreshToken} />
             </div>
             <div className="rightCol">
                 <Header route="home" />

@@ -14,9 +14,9 @@ export default function SignUpPage({ fromLogin, setIsModalOpen }) {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [username, setUsername] = useState("");
+    // const [name, setName] = useState("");
     const [err, setErr] = useState(false);
     let history = useHistory();
-
     function validateForm() {
         return (
             email.length > 0 &&
@@ -27,20 +27,20 @@ export default function SignUpPage({ fromLogin, setIsModalOpen }) {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        let formData = { "email": email,"password": password, "username": username  }
-        console.log(email)
-        console.log(password)
-        console.log(username)
+        let formData = { "email": email, "password": password, "username": username }
         axios.post('http://twitterapifinal.pythonanywhere.com/account/register/', formData).then(
             res => {
+                console.log(res)
                 if (res.status === 200) {
                     if (!fromLogin) { history.push('/login') }
-                    else{
+                    else {
                         setIsModalOpen(false)
                     }
                 }
             }
-        ).catch(err=>setErr(true))
+        ).catch(err => {
+            console.log(err)
+            setErr(true)})
     }
 
     return (
@@ -58,6 +58,9 @@ export default function SignUpPage({ fromLogin, setIsModalOpen }) {
                 </div> : null
             }
             <form onSubmit={handleSubmit}>
+                {/* <label>
+                    <Input className="input" value={name} placeholder="Name" onChange={(e) => setName(e.target.value)} />
+                </label> */}
                 <label>
                     <Input className="input" value={username} placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
                 </label>

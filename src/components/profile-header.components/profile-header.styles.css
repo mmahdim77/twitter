@@ -101,6 +101,7 @@
 
 .profile-header .unfollow{
     background-color: #ca2055;
+    width: 93px;
     color: white;
     font-weight: bold;
     border: none;
@@ -108,8 +109,10 @@
 }
 
 .profile-header .follow{
+    width: 93px;
     color: rgb(28, 164, 252);
     font-weight: bold;
+
 }
 
 .profile-header .follow:hover{

@@ -14,6 +14,7 @@ import Status from './pages/status.pages/status.pages'
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || null);
+  const [refreshToken, setRefreshToken] = useState(localStorage.getItem('refreshToken') || null);
   const [myUser, setMyUser] = useState(JSON.parse(localStorage.getItem('myUser')) || null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   useEffect(()=>{
@@ -29,17 +30,17 @@ function App() {
     <div className="App">
 
       <Switch>
-        <Route path="/profile/:username/status/:idx" >
-          <Status token={token} myUser={myUser} />
+        <Route path="/profile/:username/status/:idx">
+          <Statue refreshToken={refreshToken} token={token} myUser={myUser} />
         </Route>
         <Route path="/home">
-          <Home token={token} myUser={myUser} />
+          <Home refreshToken={refreshToken} token={token} myUser={myUser} />
         </Route>
         <Route path="/profile/:username">
-          <Profile myUser={myUser} token={token} />
+          <Profile refreshToken={refreshToken} myUser={myUser} token={token} />
         </Route>
         <Route path="/login">
-          <LoginPage setToken={setToken} isModalOpen={isModalOpen}  setIsModalOpen={setIsModalOpen} setTheUser={setMyUser} />
+          <LoginPage setRefreshToken={setRefreshToken} setToken={setToken} isModalOpen={isModalOpen}  setIsModalOpen={setIsModalOpen} setTheUser={setMyUser} />
         </Route>
         <Route path="/signup"  >
           <SignUpPage fromLogin={false}/>

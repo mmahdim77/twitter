@@ -10,7 +10,7 @@ import SignUpPage from '../signup.pages/signup.pages'
 
 
 
-export default function LoginPage({ setToken, isModalOpen, setIsModalOpen , setTheUser }) {
+export default function LoginPage({setRefreshToken, setToken, isModalOpen, setIsModalOpen , setTheUser }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [err, setErr] = useState(false);
@@ -45,6 +45,7 @@ export default function LoginPage({ setToken, isModalOpen, setIsModalOpen , setT
                             // console.log(response.data)
                             setTheUser(response.data)
                             setToken(res.data.access)
+                            setRefreshToken(res.data.refresh)
                             history.push("/home/" + email)
                         }
                     )

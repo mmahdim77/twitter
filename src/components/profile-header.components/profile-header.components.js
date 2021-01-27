@@ -130,11 +130,11 @@ const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, 
                                     <div>
                                         {
                                             hasFollowed == true ?
-                                                <Button className="unfollow" type="default" shape="round" size={"large"} onClick={unfollow} > Unfollow </Button>
+                                                <Button className="unfollow" type="default" shape="round"  onClick={unfollow} > Unfollow </Button>
                                                 :
                                                 hasFollowed == false ?
-                                                    <Button className="follow" type="default" shape="round" size={"large"} onClick={follow} > Follow </Button> :
-                                                    <div></div>
+                                                    <Button className="follow" type="default" shape="round"  onClick={follow} > Follow </Button> :
+                                                <div></div>
                                         }
 
                                     </div>

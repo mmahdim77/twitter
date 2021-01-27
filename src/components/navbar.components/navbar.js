@@ -1,4 +1,4 @@
-import React , {useState} from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import Logo from './logo.png'
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
@@ -6,40 +6,49 @@ import './navbar.styles.css'
 import { Input, Space, Modal } from 'antd';
 import WriteTweet from '../write-tweet/write-tweet.components'
 import { Button, Avatar, Menu, Dropdown } from 'antd';
+import axios from 'axios';
 
 
-function Navbar({username}) {
+function Navbar({ myUser,refreshToken }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const menu = (
+  const logout = ()=>{
+    let formData = { refresh_token: refreshToken}
+    axios.post('http://twitterapifinal.pythonanywhere.com/account/logout/', formData)
+  }
+  let menu
+  myUser ? 
+  menu = (
     <Menu>
-        <div className="avatar-user" >
-            <Avatar className="avatar" />
-            <div className="container">
-                <div className="name" >
-                    folani
-                </div>
-                <div className="username" >
-                    @folani
-                </div>
-            </div>
+      <div className="avatar-user" >
+        <Avatar className="avatar" />
+        <div className="container">
+          <div className="name" >
+            {myUser.name}
+          </div>
+          <div className="username" >
+            @{myUser.username}
+          </div>
         </div>
-        <Menu.Divider />
-        <Menu.Item className="menu"><Link to="/">
-            Log out
+      </div>
+      <Menu.Divider />
+      <Menu.Item className="menu" onclick={logout}><Link to="/">
+        Log out
         </Link></Menu.Item>
     </Menu>
-  );
+  )
+  :
+  <div></div>
 
   const showModal = () => {
     setIsModalOpen(true);
-};
+  };
   const handleOk = () => {
     setIsModalOpen(false);
-};
+  };
 
-const handleCancel = () => {
+  const handleCancel = () => {
     setIsModalOpen(false);
-};
+  };
 
 
   return (
@@ -49,39 +58,51 @@ const handleCancel = () => {
           <img src={Logo} height='36px' width='45px'>
           </img>
         </div>
-        <div className="button">
-          <Link to={'/home'}>
-            <Button className="b" icon={<HomeOutlined />}>Home</Button>
-          </Link>
-        </div>
-        <div className="button">
-          <Link to={"/profile/"+username}>
-            <Button className="b" icon={<UserOutlined />}>Profile</Button>
-          </Link>
-        </div>
-        <div className="button">
-          <Link>
-            <Button className="tweet" onClick={showModal} >Tweet</Button>
-          </Link>
-        </div>
-        <Modal className="modal" width="550px" footer={null} closable={false} visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-          <WriteTweet />
-        </Modal>
+        {
+          myUser ?
+            <div>
+              <div className="button">
+                <Link to={'/home'}>
+                  <Button className="b" icon={<HomeOutlined />}>Home</Button>
+                </Link>
+              </div>
+              <div className="button">
+                <Link to={"/profile/" + myUser.username}>
+                  <Button className="b" icon={<UserOutlined />}>Profile</Button>
+                </Link>
+              </div>
+              <div className="button">
+                <Link>
+                  <Button className="tweet" onClick={showModal} >Tweet</Button>
+                </Link>
+              </div>
+              <Modal className="modal" width="550px" footer={null} closable={false} visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <WriteTweet />
+              </Modal>
+            </div>
+            :
+            <div></div>
+        }
       </div>
-      <div className="down-row">
-        <Dropdown 
-        id="1"
-        className="dropdown" 
-        placement="topCenter" 
-        overlay={menu} 
-        trigger={['click']}
-        getPopupContainer={trigger => trigger.parentNode}
+      {
+        myUser ?
+        <div className="down-row">
+        <Dropdown
+          id="1"
+          className="dropdown"
+          placement="topCenter"
+          overlay={menu}
+          trigger={['click']}
+          getPopupContainer={trigger => trigger.parentNode}
         >
-            <Button className="logout" >
-                Log out
+          <Button className="logout" >
+            Log out
             </Button>
         </Dropdown>
       </div>
+      :
+      <div></div>
+      }
     </div>
   );
 }

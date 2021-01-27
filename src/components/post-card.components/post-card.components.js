@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './post-card.styles.css';
 import { Avatar } from 'antd';
-import { HeartFilled ,RetweetOutlined, LikeOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { UserOutlined, CommentOutlined, HeartFilled, RetweetOutlined, LikeOutlined, EllipsisOutlined } from '@ant-design/icons';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import IconButton from '@material-ui/core/IconButton';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import { Menu, Dropdown } from 'antd';
 import { useHistory } from "react-router-dom";
@@ -14,9 +16,9 @@ import axios from 'axios';
 
 
 
-const PostCard = ({ tweet ,myUser,token  }) => {
+const PostCard = ({ tweet, myUser, token }) => {
     const likedBy = ['ali', 'hasan', 'mohsen']
-    const avatar=tweet.user.picture_url
+    const avatar = tweet.user.picture_url
     const name = tweet.user.name
     const userName = tweet.user.username
     const date = tweet.date
@@ -26,42 +28,87 @@ const PostCard = ({ tweet ,myUser,token  }) => {
     let history = useHistory()
     const [liked, setLiked] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(null);
+    const [whoLikesLen, setWhoLikesLen] = useState(null);
+    const [retweeted, setRetweeted] = useState(null);
+    const [retweetedLen, setRetweetedLen] = useState(null);
     const dateFloor = (Date.now() - new Date(date)) / 1000
-    let formData = { pk: pk }
-    let whoLikes=[]
+    let formData = { id: pk }
+    let whoLikes = []
+    let retweetedList = []
     useEffect(() => {
-        axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/'+pk ).then(
+        axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/' + pk).then(
+
             res => {
-                // console.log(res)
+                console.log(res.data)
                 if (res.data.likes.length > 0) {
                     res.data.likes.forEach(
                         (result) => whoLikes.push(result)
                     )
+                    setWhoLikesLen(whoLikes.length)
+                }
+
+                if (res.data.retwitts.length > 0) {
+                    res.data.retwitts.forEach(
+                        (result) => retweetedList.push(result)
+                    )
+                    setRetweetedLen(retweetedList.length)
                 }
             }
         )
-        .then(
-            () => {
-                const found = whoLikes.find(element => element === myUser.username);
+            .then(
+                () => {
+                    let found = whoLikes.find(element => element === myUser.username);
 
-                found ? setLiked(true) : setLiked(false);
-            }
-        )
+                    found ? setLiked(true) : setLiked(false);
+
+                    found = retweetedList.find(element => element === myUser.username);
+
+                    found ? setRetweeted(true) : setRetweeted(false);
+
+                }
+            )
     }, [])
 
 
     const like = (e) => {
         e.stopPropagation();
-        setLiked(true)
-        // console.log("lie")
+        console.log("inja")
         axios.post('http://twitterapifinal.pythonanywhere.com/twitt/like/', formData, { headers: { 'Authorization': 'Bearer  ' + token } }).then(
             res => {
+                console.log("inja")
+                setWhoLikesLen(whoLikesLen+1)
                 setLiked(true)
             }
         )
     };
-    const retweet = () => {
-        // console.log("retweeted")
+
+    const dislike = (e) => {
+        e.stopPropagation();
+        axios.post('http://twitterapifinal.pythonanywhere.com/twitt/dislike/', formData, { headers: { 'Authorization': 'Bearer  ' + token } }).then(
+            res => {
+                setWhoLikesLen(whoLikesLen-1)
+                setLiked(false)
+            }
+        )
+    };
+    let form = { pk: pk }
+    const retweet = (e) => {
+        e.stopPropagation();
+        axios.post('http://twitterapifinal.pythonanywhere.com/twitt/retwitt/', form, { headers: { 'Authorization': 'Bearer  ' + token } }).then(
+            res => {
+                setRetweetedLen(retweetedLen+1)
+                setRetweeted(true)
+            }
+        )
+    }
+    const unretweet = (e) => {
+        e.stopPropagation();
+        axios.post('http://twitterapifinal.pythonanywhere.com/twitt/retwitt/', formData, { headers: { 'Authorization': 'Bearer  ' + token } }).then(
+            res => {
+                setRetweetedLen(retweetedLen-1)
+                setRetweeted(false)
+            }
+        )
     }
     const postComment = (e) => {
         e.stopPropagation()
@@ -77,13 +124,13 @@ const PostCard = ({ tweet ,myUser,token  }) => {
           </Menu.Item> */}
             <Menu.Item danger>delete {id}</Menu.Item>
         </Menu>
-      );
-    const openPostCard =(e)=>{
-        history.push("/profile/"+userName+"/status/"+pk )
+    );
+    const openPostCard = (e) => {
+        history.push("/profile/" + userName + "/status/" + pk)
     }
-    const openUser =(e)=>{
+    const openUser = (e) => {
         e.stopPropagation();
-        history.push("/profile/"+userName )
+        history.push("/profile/" + userName)
     }
     const showModal = () => {
         setIsModalOpen(true);
@@ -158,17 +205,29 @@ const PostCard = ({ tweet ,myUser,token  }) => {
                     <span>1</span>
                 </div>
                 <div className="actionBarBtn">
-                    <RetweetOutlined style={{ fontSize: 19 }} onClick={retweet} />
-                    <span>1</span>
+                    {
+                        retweeted ?
+                            <RetweetOutlined style={{ fontSize: 19 }} onClick={unretweet} />
+                            :
+                            <RetweetOutlined style={{ fontSize: 19 }} onClick={retweet} />
+                    }
+
+                    <span>
+                        {
+                            retweetedLen == 0 ? <span></span> : retweetedLen
+                        }
+                    </span>
                 </div>
                 <div className="actionBarBtn">
                     {
                         liked ?
-                            <HeartFilled  style={{ fontSize: 19, color: "#ca2055" }}/>
+                            <HeartFilled style={{ fontSize: 19, color: "#ca2055" }} onClick={dislike} />
                             :
-                            <HeartFilled  style={{ fontSize: 19, color: "gray" }} onClick={like}/>
+                            <HeartFilled style={{ fontSize: 19, color: "gray" }} onClick={like} />
                     }
-                    <span>1</span>
+                    <span>{
+                        whoLikesLen == 0 ? <span></span> : whoLikesLen
+                    }</span>
                 </div>
             </div>
 
