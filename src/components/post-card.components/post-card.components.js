@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './post-card.styles.css';
 import { Avatar } from 'antd';
-import { UserOutlined, CommentOutlined,HeartFilled ,RetweetOutlined, LikeOutlined, EllipsisOutlined } from '@ant-design/icons';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import IconButton from '@material-ui/core/IconButton';
+import { HeartFilled ,RetweetOutlined, LikeOutlined, EllipsisOutlined } from '@ant-design/icons';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import { Menu, Dropdown } from 'antd';
 import { useHistory } from "react-router-dom";
-
+import { Input, Space, Modal } from 'antd';
+import WriteTweet from '../write-tweet/write-tweet.components'
 
 // import CustomButton from '../custom-button/custom-button.component'
 // import {useState , useEffect} from 'react';
@@ -15,7 +14,7 @@ import axios from 'axios';
 
 
 
-const PostCard = ({ tweet ,myUser,token }) => {
+const PostCard = ({ tweet ,myUser,token  }) => {
     const likedBy = ['ali', 'hasan', 'mohsen']
     const avatar=tweet.user.picture_url
     const name = tweet.user.name
@@ -26,6 +25,7 @@ const PostCard = ({ tweet ,myUser,token }) => {
     const pk = tweet.id
     let history = useHistory()
     const [liked, setLiked] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(null);
     const dateFloor = (Date.now() - new Date(date)) / 1000
     let formData = { pk: pk }
     let whoLikes=[]
@@ -63,8 +63,10 @@ const PostCard = ({ tweet ,myUser,token }) => {
     const retweet = () => {
         // console.log("retweeted")
     }
-    const comments = () => {
-        // console.log("comments")
+    const postComment = (e) => {
+        e.stopPropagation()
+        showModal()
+
     }
     const menu = (id) => (
         <Menu>
@@ -83,6 +85,16 @@ const PostCard = ({ tweet ,myUser,token }) => {
         e.stopPropagation();
         history.push("/profile/"+userName )
     }
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
     return (
         <div className="postCard" onClick={openPostCard}>
             {
@@ -109,15 +121,15 @@ const PostCard = ({ tweet ,myUser,token }) => {
                                         {
                                             dateFloor < 60 ?
                                                 Math.floor(dateFloor) + ' Seconds' :
-                                                dateFloor / 60 < 60 ?
-                                                    Math.floor(dateFloor / 60) + ' Minutes' :
-                                                    dateFloor / 3600 < 24 ?
-                                                        Math.floor(dateFloor / 3600) + ' Hours' :
-                                                        dateFloor / 86400 < 30 ?
-                                                            Math.floor(dateFloor / 86400) + ' days' :
-                                                            dateFloor / 86400 / 30 < 12 ?
-                                                                Math.floor(dateFloor / 86400 / 30) + ' Months' :
-                                                                Math.floor(dateFloor / 86400 / 30 / 12) + ' Years'
+                                            dateFloor / 60 < 60 ?
+                                                Math.floor(dateFloor / 60) + ' Minutes' :
+                                            dateFloor / 3600 < 24 ?
+                                                Math.floor(dateFloor / 3600) + ' Hours' :
+                                            dateFloor / 86400 < 30 ?
+                                                Math.floor(dateFloor / 86400) + ' days' :
+                                            dateFloor / 86400 / 30 < 12 ?
+                                                Math.floor(dateFloor / 86400 / 30) + ' Months' :
+                                                Math.floor(dateFloor / 86400 / 30 / 12) + ' Years'
                                         }
                                     </span>
                                     :
@@ -142,7 +154,7 @@ const PostCard = ({ tweet ,myUser,token }) => {
             </div>
             <div className="actionBar">
                 <div className="actionBarBtn">
-                    <ChatBubbleOutlineIcon style={{ fontSize: 19 }} onClick={comments} ></ChatBubbleOutlineIcon>
+                    <ChatBubbleOutlineIcon style={{ fontSize: 19 }} onClick={postComment} ></ChatBubbleOutlineIcon>
                     <span>1</span>
                 </div>
                 <div className="actionBarBtn">
@@ -159,6 +171,11 @@ const PostCard = ({ tweet ,myUser,token }) => {
                     <span>1</span>
                 </div>
             </div>
+
+            <Modal className="modal" width="550px" footer={null} closable={false} visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                    <PostCard tweet ={tweet} token={token} myUser={myUser} />
+                    <WriteTweet token={token} commentTo={pk}  />
+            </Modal>
         </div>
     )
 }

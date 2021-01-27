@@ -64,7 +64,6 @@ const Profile = ({token, myUser}) => {
                         userName={user.username}
                         created_at={user.created_at} 
                         email={user.email}
-
                     />
                     {
                         tweets ?

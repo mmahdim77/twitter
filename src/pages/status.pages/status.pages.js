@@ -6,72 +6,81 @@ import ProfileHeader from '../../components/profile-header.components/profile-he
 import { Input } from 'antd';
 import Navbar from '../../components/navbar.components/navbar'
 import Header from '../../components/header.components/header.components'
-import { useParams } from "react-router-dom";
+import { withRouter } from "react-router";
 import PostCard from '../../components/post-card.components/post-card.components'
-
-const Status = ({token, myUser}) => {
-    let { username , idx } = useParams();
-    const [mainTweet, setMainTweet] = useState(null);
-    const [comments, setComments] = useState([]);
-    const getComments = ()=>{
+ class Status extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        mainTweet : null,
+        comments :[],
+        username:"",
+        idx : ""
+      };
+    }
+    
+    getComments = async ()=>{
         // console.log('start')
-        axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/'+idx ).then(
+        await axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/'+this.state.idx ).then(
             res => {
                 // console.log('main tweet')
                 // console.log(res)
-                setMainTweet(res.data)
+                this.setState({mainTweet:res.data})
                 return res.data.comments
             }
         ).then(
-            cmnts => {
-                // console.log("comments")
-                // console.log(cmnts)
+            async (cmnts) => {
+                console.log("comments")
+                console.log(cmnts)
                 let id
                 let temp=[]
                 for (let i =0; i<cmnts.length ; i+=1){
                     // console.log("for")
-                    axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/'+cmnts[i] ).then(
+                    await axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/'+cmnts[i] ).then(
                         response => {
+                            console.log(response.data)
                             temp.push(response.data)
                         }
                     )
                 }
-                // console.log("final temp" , [...temp])
-                setComments([...temp])
+                this.setState({comments:temp}  , ()=>console.log("state", this.state))
             }
         )
     }
-    useEffect(() => {
-        getComments()
-    }, [idx])
+    componentDidMount(){
+        this.setState({idx :  this.props.match.params.idx}, () => this.getComments())
+    }
+    componentWillReceiveProps(newProps){
+        this.setState({idx :newProps.match.params.idx}, () => this.getComments())
+    }
 
 
-
-    return (
+    render() {  
+      return (
         <div className="home">
             <div className="left-col">
-                <Navbar username={myUser.username} />
+                <Navbar username={this.props.myUser.username} />
             </div>
             {
-                mainTweet?
+                this.state.mainTweet?
                 <div className="right-col">
                     <Header route="tweet" />
                     <PostCard
-                        myUser ={myUser}
-                        token ={token}
-                        tweet ={mainTweet}
+                        myUser ={this.props.myUser}
+                        token ={this.props.token}
+                        tweet ={this.state.mainTweet}
                     />
+
                     {
-                        comments ?
-                        comments.map(
+                        this.state.comments.length>0 ?
+                        this.state.comments.map(
                             (tweet) =>{
-                                // console.log(tweet)
+                                console.log("tweet")
+                                console.log(tweet)
                                 return (
-                                    <PostCard
-                                        token ={token}
-                                        myUser = {myUser}
-                                        tweet = {tweet}
-                                    />
+                                <div>
+                                    <PostCard token ={this.props.token} myUser = {this.props.myUser} tweet = {tweet}/>
+                                </div>
                                 )
                             }
                         )
@@ -79,13 +88,12 @@ const Status = ({token, myUser}) => {
                         <div></div>
                     }
                 </div>
-                
                 :
                 <div></div>
             }
-            
         </div>
-    )
-}
-
-export default Status
+      )
+    }
+  }
+  
+export default withRouter(Status);

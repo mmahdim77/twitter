@@ -31,7 +31,7 @@ export default function SignUpPage({ fromLogin, setIsModalOpen }) {
         console.log(email)
         console.log(password)
         console.log(username)
-        axios.post('http://twitterapifinal.pythonanywhere.com/account/register', formData).then(
+        axios.post('http://twitterapifinal.pythonanywhere.com/account/register/', formData).then(
             res => {
                 if (res.status === 200) {
                     if (!fromLogin) { history.push('/login') }

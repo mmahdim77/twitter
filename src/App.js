@@ -9,7 +9,7 @@ import WriteTweet from './components/write-tweet/write-tweet.components'
 import Profile from './pages/profile.pages/profile.pages'
 import Home from './pages/home.pages/home.pages'
 import TwitterHome from './pages/twitter.pages/twitter.pages'
-import Statue from './pages/status.pages/status.pages'
+import Status from './pages/status.pages/status.pages'
 
 
 function App() {
@@ -29,8 +29,8 @@ function App() {
     <div className="App">
 
       <Switch>
-        <Route path="/profile/:username/status/:idx">
-          <Statue token={token} myUser={myUser} />
+        <Route path="/profile/:username/status/:idx" >
+          <Status token={token} myUser={myUser} />
         </Route>
         <Route path="/home">
           <Home token={token} myUser={myUser} />
