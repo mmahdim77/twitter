@@ -33,7 +33,8 @@ const TweetDetails = ({token, myUser}) => {
             cmnts => {
                 console.log("comments")
                 console.log(cmnts)
-                for(id in cmnts){
+                let id
+                for(id of cmnts){
                     axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/'+id ).then(
                         res => {
                             console.log("comment")
