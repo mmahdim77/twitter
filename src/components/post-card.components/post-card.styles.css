@@ -32,7 +32,6 @@
 .postCard .header>.details{
     display: flex;
     justify-content: left;
-    back: green;
 }
 .postCard .header>.setting{
     display: flex;
@@ -78,7 +77,15 @@
     object-fit: cover ;
 
 }
-.postCard actionBar > *{
-    color: #5b708300;
+.postCard .actionBarBtn {
+    display: flex;
+    flex-direction: row;
+    width: 30px;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: space-between;
+
 }
+
+
 
