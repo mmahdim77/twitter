@@ -29,11 +29,15 @@ const PostCard = ({ tweet, myUser, token }) => {
     const [whoLikesLen, setWhoLikesLen] = useState(null);
     const [retweeted, setRetweeted] = useState(null);
     const [retweetedLen, setRetweetedLen] = useState(null);
+    const [commentsLen, setCommentsLen] = useState(null);
     const dateFloor = (Date.now() - new Date(date)) / 1000
     let formData = { id: pk }
     let whoLikes = []
     let retweetedList = []
     useEffect(() => {
+        console.log("ssssss")
+        console.log(tweet)
+        setCommentsLen(tweet.comments.length)
         axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/' + pk).then(
 
             res => {
@@ -200,7 +204,11 @@ const PostCard = ({ tweet, myUser, token }) => {
             <div className="actionBar">
                 <div className="actionBarBtn">
                     <ChatBubbleOutlineIcon style={{ fontSize: 19 }} onClick={postComment} ></ChatBubbleOutlineIcon>
-                    <span>1</span>
+                    <span>
+                        {
+                            commentsLen == 0 ? <span></span> : commentsLen
+                        }
+                    </span>
                 </div>
                 <div className="actionBarBtn">
                     {
