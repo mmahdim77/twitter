@@ -98,9 +98,6 @@
     background-color:rgb(25, 139, 216);
     transition: 0.4s;
 }
-.profile-header .ant-modal-body .popLogin{
-    background-color: black !important;
-}
 
 .profile-header .unfollow{
     background-color: #ca2055;

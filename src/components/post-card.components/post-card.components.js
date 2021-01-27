@@ -14,7 +14,7 @@ import { Menu, Dropdown } from 'antd';
 
 
 
-const PostCard = ({avatar , name , userName , date , postText , postMedias }) => {
+const PostCard = ({avatar , name , userName , date , postText , postMedias , pk }) => {
     const likedBy =['ali', 'hasan', 'mohsen']
     const dateFloor = (Date.now()-new Date(date))/1000
     const like = () =>{
