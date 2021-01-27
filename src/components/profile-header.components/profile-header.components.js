@@ -1,30 +1,106 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './profile-header.styles.css';
 import 'antd/dist/antd.css';
-import { Avatar } from 'antd';
+import { Avatar, Dropdown, Menu, Button, Modal } from 'antd';
+import { Link } from 'react-router-dom';
 import PermMediaIcon from '@material-ui/icons/PermMedia';
-import { DownloadOutlined } from '@ant-design/icons';
-
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import { Button } from 'antd';
-import { UserOutlined , CommentOutlined , RetweetOutlined ,LikeOutlined} from '@ant-design/icons';
+import { UserOutlined, UserAddOutlined } from '@ant-design/icons';
 // import CustomButton from '../custom-button/custom-button.component' 
 // import {useState , useEffect} from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import { Input } from 'antd';
 
 const { TextArea } = Input;
 
 
 
-const ProfileHeader = ({myusername, cover, avatar , name , userName , bio }) => {
-    const noImage = "./material/no-cover.jpg"
-    let haveFollowButton 
-    if(myusername === userName) {
+const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, email }) => {
+    const [hasFollowed, setHasFollowed] = useState(null);
+    let following = [];
+    useEffect(() => {
+        axios.get('http://twitterapifinal.pythonanywhere.com/account/following/list/' + myusername, { headers: { 'Authorization': 'Bearer  ' + token } }).then(
+            res => {
+                if (res.data.results.length > 0) {
+
+                    res.data.results.forEach(
+                        function (result) {
+                            following.push(result.target.username)
+                        }
+                    )
+                }
+            }
+        ).then(
+            () => {
+                const found = following.find(element => element === userName);
+
+                found ? setHasFollowed(true) : setHasFollowed(false);
+            }
+        )
+    }, [userName])
+
+
+
+
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+
+    const editMenu = (
+        <Menu>
+            <div className="avatar-user" >
+                <Avatar className="avatar" />
+                <div className="container">
+                    <div className="name" >
+                        folani
+                    </div>
+                    <div className="username" >
+                        @folani
+                    </div>
+                </div>
+            </div>
+            <Menu.Divider />
+            <Menu.Item className="menu"><Link to="/">
+                Log out
+            </Link></Menu.Item>
+        </Menu>
+    );
+    let formData = { email: email }
+    const follow = () => {
+        axios.post('http://twitterapifinal.pythonanywhere.com/account/follow/', formData, { headers: { 'Authorization': 'Bearer  ' + token } }).then(
+            res => {
+                setHasFollowed(true)
+            }
+        )
+    };
+    const unfollow = () => {
+        console.log("hiii")
+        axios.post('http://twitterapifinal.pythonanywhere.com/account/unfollow/', formData, { headers: { 'Authorization': 'Bearer  ' + token } }).then(
+            res => {
+                setHasFollowed(false)
+            }
+        )
+    };
+    const edit = () => {
+
+    };
+
+    const noImage = "./material/no-cover.png"
+    let haveFollowButton
+    if (myusername === userName) {
         haveFollowButton = false
     }
-    else{
+    else {
         haveFollowButton = true
     }
     return (
@@ -34,24 +110,79 @@ const ProfileHeader = ({myusername, cover, avatar , name , userName , bio }) => 
             </div>
             <div className="avatar">
                 {
-                    avatar ? 
-                    <Avatar size={142} src={avatar} />
-                    :
-                    <Avatar size={142} icon={<UserOutlined />} />
+                    avatar ?
+                        <Avatar size={142} src={avatar} />
+                        :
+                        <Avatar size={142} icon={<UserOutlined />} />
 
 
                 }
             </div>
             <div className="details">
                 <div className="actionBar">
-                    {haveFollowButton ? 
-                    <div className="followBtn">
-                        <Button type="default" shape="round" size={"large"}> Follow </Button>
-                    </div>
-                    :
-                    <div className="followBtn">
-                        <Button type="default" shape="round" size={"large"}> Edit </Button>
-                    </div>
+                    {haveFollowButton ?
+                        <div className="followBtn">
+                            {
+                                myusername ?
+
+                                    <div>
+                                        {
+                                            hasFollowed == true ?
+                                                <Button className="unfollow" type="default" shape="round"  size={"large"} onClick={unfollow} > Unfollow </Button>
+                                                :
+                                                hasFollowed == false ?
+                                                    <Button className="follow" type="default" shape="round" size={"large"} onClick={follow} > Follow </Button> :
+                                                    <div></div>
+                                        }
+
+                                    </div>
+
+                                    :
+
+                                    <div>
+                                        <Button type="default" shape="round" size={"large"} onClick={showModal} >Follow</Button>
+                                        <Modal className="modal" width="550px" footer={null} visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                                            <div className="popLogin">
+                                                <UserAddOutlined />
+                                                <h1>
+                                                    Follow {userName} to see what they share on Twitter.
+                                            </h1>
+                                                <div>
+                                                    Sign up so you never miss their Tweets.
+                                            </div>
+                                                <div className="button">
+                                                    <Link to="/signup">
+                                                        <Button className="sign" >Sign up</Button>
+                                                    </Link>
+
+                                                </div>
+                                                <div className="button">
+                                                    <Link to="/login">
+                                                        <Button className="log" >Log in</Button>
+                                                    </Link>
+
+                                                </div>
+                                            </div>
+                                        </Modal>
+                                    </div>
+
+                            }
+
+                        </div>
+                        :
+                        <div className="followBtn">
+                            <Dropdown
+                                id="1"
+                                className="dropdown"
+                                placement="topCenter"
+                                overlay={editMenu}
+                                trigger={['click']}
+                                getPopupContainer={trigger => trigger.parentNode}
+                            >
+                                <Button type="default" shape="round" size={"large"} onClick={edit}> Edit </Button>
+                            </Dropdown>
+
+                        </div>
                     }
                 </div>
                 <div className="biography">
