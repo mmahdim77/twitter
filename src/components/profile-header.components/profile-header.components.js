@@ -18,9 +18,15 @@ const { TextArea } = Input;
 
 
 
-const ProfileHeader = ({cover, avatar , name , userName , bio }) => {
+const ProfileHeader = ({myusername, cover, avatar , name , userName , bio }) => {
     const noImage = "./material/no-cover.png"
-
+    let haveFollowButton 
+    if(myusername === userName) {
+        haveFollowButton = false
+    }
+    else{
+        haveFollowButton = true
+    }
     return (
         <div className="profile-header">
             <div className="cover">
@@ -38,9 +44,15 @@ const ProfileHeader = ({cover, avatar , name , userName , bio }) => {
             </div>
             <div className="details">
                 <div className="actionBar">
+                    {haveFollowButton ? 
                     <div className="followBtn">
                         <Button type="default" shape="round" size={"large"}> Follow </Button>
                     </div>
+                    :
+                    <div className="followBtn">
+                        <Button type="default" shape="round" size={"large"}> Edit </Button>
+                    </div>
+                    }
                 </div>
                 <div className="biography">
                     <span className="name">{name}</span>

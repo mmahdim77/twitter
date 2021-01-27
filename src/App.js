@@ -33,7 +33,7 @@ function App() {
           <Home token={token} myUser={myUser} />
         </Route>
         <Route path="/profile/:username">
-          <Profile token={token} />
+          <Profile myUser={myUser} token={token} />
         </Route>
         <Route path="/login">
           <LoginPage setToken={setToken} isModalOpen={isModalOpen}  setIsModalOpen={setIsModalOpen} setTheUser={setMyUser} />
