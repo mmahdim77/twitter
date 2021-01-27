@@ -31,6 +31,7 @@ const Profile = ({token, myUser}) => {
     }
 
     useEffect(() => {
+        
         axios.get('http://twitterapifinal.pythonanywhere.com/account/profile/'+username ).then(
             res => {
                 // console.log(res.data)
@@ -39,7 +40,6 @@ const Profile = ({token, myUser}) => {
         )
         axios.get('http://twitterapifinal.pythonanywhere.com/twitt/twitt_profile/'+username ).then(
             res => {
-                // console.log(res.data)
                 setTweets(res.data)
             }
         )
@@ -54,7 +54,7 @@ const Profile = ({token, myUser}) => {
             {
                 user?
                 <div className="right-col">
-                    <Header route="profile" name={user.name} numOfTweets ={'0'}/>
+                    <Header route="profile" name={user.name} numOfTweets ={tweets==null ? 0 : tweets.count}/>
                     <ProfileHeader 
                         token = {token}
                         myusername={myusername}

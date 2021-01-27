@@ -50,7 +50,8 @@ const PostCard = ({ tweet ,myUser,token }) => {
     }, [])
 
 
-    const like = () => {
+    const like = (e) => {
+        e.stopPropagation();
         setLiked(true)
         // console.log("lie")
         axios.post('http://twitterapifinal.pythonanywhere.com/twitt/like/', formData, { headers: { 'Authorization': 'Bearer  ' + token } }).then(
