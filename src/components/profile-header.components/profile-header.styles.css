@@ -98,7 +98,7 @@
     background-color:rgb(25, 139, 216);
     transition: 0.4s;
 }
-.profile-header .popLogin{
+.profile-header .ant-modal-body .popLogin{
     background-color: black !important;
 }
 

@@ -10,7 +10,6 @@ import { UserOutlined, UserAddOutlined } from '@ant-design/icons';
 // import {useState , useEffect} from 'react';
 import axios from 'axios';
 import { Input } from 'antd';
-
 const { TextArea } = Input;
 
 
@@ -103,6 +102,7 @@ const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, 
     else {
         haveFollowButton = true
     }
+
     return (
         <div className="profile-header">
             <div className="cover">
@@ -141,20 +141,26 @@ const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, 
 
                                     <div>
                                         <Button type="default" shape="round" size={"large"} onClick={showModal} >Follow</Button>
-                                        <Modal className="modal" width="550px" footer={null} visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                                        <Modal  className="modal"
+                                                width="550px" 
+                                                footer={null}
+                                                visible={isModalOpen}
+                                                onOk={handleOk}
+                                                onCancel={handleCancel}
+                                                bodyStyle={ {"border" : "1px black"}}
+                                        >
                                             <div className="popLogin">
                                                 <UserAddOutlined />
                                                 <h1>
                                                     Follow {userName} to see what they share on Twitter.
-                                            </h1>
+                                                </h1>
                                                 <div>
-                                                    Sign up so you never miss their Tweets.
-                                            </div>
+                                                        Sign up so you never miss their Tweets.
+                                                </div>
                                                 <div className="button">
                                                     <Link to="/signup">
                                                         <Button className="sign" >Sign up</Button>
                                                     </Link>
-
                                                 </div>
                                                 <div className="button">
                                                     <Link to="/login">

@@ -18,7 +18,7 @@ const { TextArea } = Input;
 const TweetDetails = ({token, myUser}) => {
     let { username , idx } = useParams();
     const [mainTweet, setMainTweet] = useState(null);
-    const [comments, setComments] = useState(null);
+    const [comments, setComments] = useState([]);
 
     useEffect(() => {
         console.log('start')
@@ -34,25 +34,25 @@ const TweetDetails = ({token, myUser}) => {
                 console.log("comments")
                 console.log(cmnts)
                 let id
-                for(id of cmnts){
-                    axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/'+id ).then(
-                        res => {
-                            console.log("comment")
-                            console.log(res)
-                            // setMainTweet(res.data)
-                            // return res.data.comments
+                let temp=[]
+                for (let i =0; i<cmnts.length ; i+=1){
+                    console.log("for")
+                    axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/'+cmnts[i] ).then(
+                        response => {
+                            temp.push(response.data)
                         }
                     )
                 }
+                console.log("final temp" , temp)
+                setComments(temp)
             }
         )
-
     }, [idx])
 
 
     return (
         <div className="profile">
-            {/* <div className="left-col">
+            <div className="left-col">
                 <Navbar/>
             </div>
             {
@@ -91,7 +91,7 @@ const TweetDetails = ({token, myUser}) => {
                 :
                 <div></div>
             }
-             */}
+            
         </div>
     )
 }
