@@ -19,7 +19,7 @@ const { TextArea } = Input;
 
 
 const ProfileHeader = ({myusername, cover, avatar , name , userName , bio }) => {
-    const noImage = "./material/no-cover.png"
+    const noImage = "./material/no-cover.jpg"
     let haveFollowButton 
     if(myusername === userName) {
         haveFollowButton = false

@@ -2,6 +2,8 @@
     width: 598px;
     margin: 0 auto;
     padding: 5px;
+    border : 1px solid rgb(235, 228, 240);
+    border-top : 0px solid rgb(235, 228, 240);
 }
 .profile-header .cover img{
     width: 100%;

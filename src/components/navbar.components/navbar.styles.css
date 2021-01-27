@@ -6,7 +6,7 @@
     position: sticky;
     top: 10px;
     z-index : 10;
-    margin: 10px;
+    margin: 10px auto;
     height: 90vh;
 }
 .Navbar .image{

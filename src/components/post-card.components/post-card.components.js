@@ -36,8 +36,11 @@ const PostCard = ({avatar , name , userName , date , postText , postMedias }) =>
           <Menu.Item danger>delete {id}</Menu.Item>
         </Menu>
       );
+    const openPostCard =()=>{
+        
+    }
     return (
-        <div className="postCard">
+        <div className="postCard" onClick={openPostCard}>
             {
                 likedBy.length != 0 ?
                 <div className="liked-header">

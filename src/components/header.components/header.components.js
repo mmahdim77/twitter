@@ -14,6 +14,11 @@ const Header = ({route , name, numOfTweets}) => {
                     <h2>Home</h2>
                 </div>
                 :
+                route=="tweet" ?
+                <div className="homeHeader">
+                    <h2>Tweet</h2>
+                </div>
+                :
                 route=="profile" ?
                 <div className="profileHeader">
                     <div className="back">

@@ -1,7 +1,7 @@
 
 import React, { useState , useEffect } from 'react';
 import axios from 'axios';
-import './profile.styles.css';
+import './tweet-details.styles.css';
 import 'antd/dist/antd.css';
 import ProfileHeader from '../../components/profile-header.components/profile-header.components'
 import { Input } from 'antd';
@@ -15,59 +15,61 @@ const { TextArea } = Input;
 
 
 
-const Profile = ({token, myUser}) => {
-    let { username } = useParams();
-    const [user, setUser] = useState(null);
-    const [tweets, setTweets] = useState(null);
-    let myusername;
-    if(myUser){
-        myusername =myUser.username
-    }
-    else{
-        myusername = null
-    }
+const TweetDetails = ({token, myUser}) => {
+    let { username , idx } = useParams();
+    const [mainTweet, setMainTweet] = useState(null);
+    const [comments, setComments] = useState(null);
 
     useEffect(() => {
-        axios.get('http://twitterapifinal.pythonanywhere.com/account/profile/'+username ).then(
+        console.log('start')
+        axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/'+idx ).then(
             res => {
-                console.log(res.data)
-                setUser(res.data)
+                console.log('main tweet')
+                console.log(res)
+                setMainTweet(res.data)
+                return res.data.comments
             }
-        )
-        axios.get('http://twitterapifinal.pythonanywhere.com/twitt/twitt_profile/'+username ).then(
-            res => {
-                console.log(res.data)
-                console.log(res.data)
-                setTweets(res.data)
+        ).then(
+            cmnts => {
+                console.log("comments")
+                console.log(cmnts)
+                for(id in cmnts){
+                    axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/'+id ).then(
+                        res => {
+                            console.log("comment")
+                            console.log(res)
+                            // setMainTweet(res.data)
+                            // return res.data.comments
+                        }
+                    )
+                }
             }
         )
 
-    }, [username])
+    }, [idx])
 
 
     return (
         <div className="profile">
-            <div className="left-col">
+            {/* <div className="left-col">
                 <Navbar/>
             </div>
             {
-                user?
+                mainTweet?
                 <div className="right-col">
-                    <Header route="profile" name={user.name} numOfTweets ={'0'}/>
-                    <ProfileHeader 
-                        myusername={myusername}
-                        avatar={user.picture}
-                        cover={user.cover}
-                        name={user.name}
-                        userName={user.username}
-                        created_at={user.created_at} 
-
+                    <Header route="tweet" />
+                    <PostCard
+                        avatar={mainTweet.user.picture}
+                        name={mainTweet.user.name}
+                        userName={mainTweet.user.username}
+                        date={mainTweet.date}
+                        postText={mainTweet.text}
+                        postMedias={mainTweet.image}
                     />
                     {
-                        tweets ?
-                        tweets.results.map(
+                        comments ?
+                        comments.map(
                             (tweet) =>{
-                                console.log("tweet")
                                 console.log(tweet)
                                 return (
                                     <PostCard
@@ -88,9 +90,9 @@ const Profile = ({token, myUser}) => {
                 :
                 <div></div>
             }
-            
+             */}
         </div>
     )
 }
 
-export default Profile
+export default TweetDetails
