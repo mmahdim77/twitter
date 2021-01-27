@@ -18,7 +18,7 @@ const { TextArea } = Input;
 
 
 
-const Profile = ({token, myUser}) => {
+const Profile = ({token, myUser,refreshToken}) => {
     let { username } = useParams();
     const [user, setUser] = useState(null);
     const [tweets, setTweets] = useState(null);
@@ -34,7 +34,6 @@ const Profile = ({token, myUser}) => {
         
         axios.get('http://twitterapifinal.pythonanywhere.com/account/profile/'+username ).then(
             res => {
-                // console.log(res.data)
                 setUser(res.data)
             }
         )
@@ -49,7 +48,7 @@ const Profile = ({token, myUser}) => {
     return (
         <div className="profile">
             <div className="left-col">
-                <Navbar username={myUser.username} />
+                <Navbar myUser={myUser} refreshToken={refreshToken} />
             </div>
             {
                 user?
