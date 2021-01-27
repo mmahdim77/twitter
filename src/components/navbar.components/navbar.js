@@ -50,7 +50,7 @@ const handleCancel = () => {
           </img>
         </div>
         <div className="button">
-          <Link>
+          <Link to={'/home'}>
             <Button className="b" icon={<HomeOutlined />}>Home</Button>
           </Link>
         </div>

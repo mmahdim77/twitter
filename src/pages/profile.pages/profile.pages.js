@@ -28,7 +28,7 @@ const Profile = ({token}) => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        axios.get('http://twitterapifinal.pythonanywhere.com/account/profile/'+username , {headers : {'Authorization' : 'Bearer  '+ token}}).then(
+        axios.get('http://twitterapifinal.pythonanywhere.com/account/profile/'+username).then(
             res => {
                 console.log(res.data)
                 setUser(res.data)

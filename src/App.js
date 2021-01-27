@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './App.css';
 import LoginPage from './pages/login.pages/login.pages'
 import SignUpPage from './pages/signup.pages/signup.pages'
@@ -13,15 +13,18 @@ import TwitterHome from './pages/twitter.pages/twitter.pages'
 
 
 function App() {
-  const [token, setToken] = useState(null);
-  const [myUser, setMyUser] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('token') || null);
+  const [myUser, setMyUser] = useState(JSON.parse(localStorage.getItem('myUser')) || null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const list = ['home', 'tweets', 'notification']
-  const text = "Voluptate dolore fugiat ea ipsum anim eu magna eu labore."
-  const name = "mohammad mahdi"
-  const userName = "@mmahdim"
-  const bio = "Officia non deserunt mollit anim ut esse enim sint est commodo dolor."
-  const date = new Date('January 23, 2020 03:24:00')
+  useEffect(()=>{
+    localStorage.setItem('token', token);
+  }, [token])
+  useEffect(()=>{
+    localStorage.setItem('myUser', JSON.stringify(myUser));
+  }, [myUser])
+  // useEffect(()=>{
+  //   localStorage.getItem('token');
+  // }, [])
   return (
     <div className="App">
 

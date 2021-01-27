@@ -95,8 +95,11 @@ const Home = ({ token , myUser }) => {
         },
     ]
     useEffect(() => {
+        console.log("myUser")
+        console.log(myUser)
         axios.get('http://twitterapifinal.pythonanywhere.com/twitt/list/' , {headers : {'Authorization' : 'Bearer  '+token}}).then(
                         res => {
+                            console.log("fetch tweets")
                             console.log(res.data)
                             setTweetList (res.data)
                         }
