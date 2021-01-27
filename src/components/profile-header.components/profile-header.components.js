@@ -128,7 +128,7 @@ const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, 
                                     <div>
                                         {
                                             hasFollowed == true ?
-                                                <Button className="unfollow" type="default" shape="round"  size={"large"} onClick={unfollow} > Unfollow </Button>
+                                                <Button className="unfollow" type="default" shape="round" size={"large"} onClick={unfollow} > Unfollow </Button>
                                                 :
                                                 hasFollowed == false ?
                                                     <Button className="follow" type="default" shape="round" size={"large"} onClick={follow} > Follow </Button> :
@@ -141,24 +141,74 @@ const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, 
 
                                     <div>
                                         <Button type="default" shape="round" size={"large"} onClick={showModal} >Follow</Button>
-                                        <Modal className="modal" width="550px" footer={null} visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                                            <div className="popLogin">
-                                                <UserAddOutlined />
-                                                <h1>
-                                                    Follow {userName} to see what they share on Twitter.
-                                            </h1>
+                                        <Modal style={{ borderRadius: "100px" }} className="modal" width="550px" footer={null} visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                                            <div className="popLogin"
+                                                style={
+                                                    {
+                                                        display: "flex",
+                                                        flexDirection: "column",
+                                                        justifyContent: "center",
+                                                        textAlign: "center"
+                                                    }
+                                                } >
+
+
+                                                <UserAddOutlined   style={{margin:"40px",fontSize:"60px",color:"rgb(28, 164, 252)"}} />
+
+
                                                 <div>
+                                                    <h1>
+                                                    Follow {" "}
+                                                    <span
+                                                        style={{ fontStyle: "italic" }}>
+                                                        {userName}
+                                                    </span> to see what they share on Twitter.
+                                                </h1>
+                                                <div style={{margin:"40px"}}>
                                                     Sign up so you never miss their Tweets.
-                                            </div>
-                                                <div className="button">
-                                                    <Link to="/signup">
-                                                        <Button className="sign" >Sign up</Button>
+                                                </div>
+                                                </div>
+
+                                                <div className="button"
+                                                >
+                                                    <Link to="/login">
+                                                        <Button className="log"
+                                                            style={
+                                                                {
+                                                                    backgroundColor: "rgb(28, 164, 252)",
+                                                                    outline: "rgb(28, 164, 252)",
+                                                                    color: "white",
+                                                                    width: "90%",
+                                                                    height: "50px",
+                                                                    borderRadius: "50px",
+                                                                    fontWeight: "bold",
+                                                                    fontSize: "15px",
+                                                                    justifyItems: "center",
+                                                                    margin: "5px"
+                                                                }
+                                                            }
+                                                        >Log in</Button>
+
                                                     </Link>
 
                                                 </div>
                                                 <div className="button">
-                                                    <Link to="/login">
-                                                        <Button className="log" >Log in</Button>
+                                                    <Link to="/signup">
+                                                        <Button className="sign"
+                                                            style={
+                                                                {
+                                                                    backgroundColor: "white",
+                                                                    outline: "rgb(28, 164, 252)",
+                                                                    color: "rgb(28, 164, 252)",
+                                                                    width: "90%",
+                                                                    height: "50px",
+                                                                    borderRadius: "50px",
+                                                                    fontWeight: "bold",
+                                                                    fontSize: "15px",
+                                                                    justifyItems: "center",
+                                                                    margin: "5px"
+                                                                }
+                                                            }>Sign up</Button>
                                                     </Link>
 
                                                 </div>
