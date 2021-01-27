@@ -38,6 +38,8 @@ const Home = ({ token , myUser }) => {
                         (tweet) =>
                         (
                             <PostCard
+                                myUser={myUser}
+                                token = {token}
                                 pk = {tweet.id}
                                 avatar={tweet.user.picture}
                                 name={tweet.user.name}
