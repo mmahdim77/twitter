@@ -7,6 +7,8 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import IconButton from '@material-ui/core/IconButton';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import { Menu, Dropdown } from 'antd';
+import { useHistory } from "react-router-dom";
+
 
 // import CustomButton from '../custom-button/custom-button.component'
 // import {useState , useEffect} from 'react';
@@ -17,6 +19,8 @@ import { Menu, Dropdown } from 'antd';
 const PostCard = ({avatar , name , userName , date , postText , postMedias , pk }) => {
     const likedBy =['ali', 'hasan', 'mohsen']
     const dateFloor = (Date.now()-new Date(date))/1000
+    const history = useHistory();
+
     const like = () =>{
         console.log("liked")
     }
@@ -36,8 +40,12 @@ const PostCard = ({avatar , name , userName , date , postText , postMedias , pk 
           <Menu.Item danger>delete {id}</Menu.Item>
         </Menu>
       );
-    const openPostCard =()=>{
-        
+    const openPostCard =(e)=>{
+        history.push("/profile/"+userName+"/status/"+pk )
+    }
+    const openUser =(e)=>{
+        e.stopPropagation();
+        history.push("/profile/"+userName )
     }
     return (
         <div className="postCard" onClick={openPostCard}>
@@ -51,12 +59,12 @@ const PostCard = ({avatar , name , userName , date , postText , postMedias , pk 
                 <div></div>
             }
             <div className="cardBody">
-                <div className="avatar">
-                    <Avatar size={49} src={avatar} />
+                <div className="avatar" >
+                    <Avatar size={49} src={avatar} onClick={openUser} />
                 </div>
                 <div className="rightCol">
                     <div className="header">
-                        <div className="details">
+                        <div className="details" onClick={openUser}>
                             <span className="name">{name}</span>
                             <span className="username">@{userName}</span>
                             {

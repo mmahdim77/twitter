@@ -9,7 +9,7 @@ import WriteTweet from './components/write-tweet/write-tweet.components'
 import Profile from './pages/profile.pages/profile.pages'
 import Home from './pages/home.pages/home.pages'
 import TwitterHome from './pages/twitter.pages/twitter.pages'
-import TweetDetails from './pages/tweet-details.pages/tweet-details.component'
+import Statue from './pages/status.pages/status.pages'
 
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
 
       <Switch>
         <Route path="/profile/:username/status/:idx">
-          <TweetDetails token={token} myUser={myUser} />
+          <Statue token={token} myUser={myUser} />
         </Route>
         <Route path="/home">
           <Home token={token} myUser={myUser} />

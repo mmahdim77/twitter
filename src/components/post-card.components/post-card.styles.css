@@ -6,6 +6,11 @@
     border :1px solid rgb(235, 228, 240);
     border-top : 0px solid rgb(235, 228, 240);
     margin: 0px auto;
+    cursor: pointer;
+}
+.postCard:hover {
+    background-color: rgba(226, 226, 226, 0.288);
+
 }
 .postCard .cardBody{
     display: flex;
@@ -32,7 +37,6 @@
 .postCard .header>.details{
     display: flex;
     justify-content: left;
-    back: green;
 }
 .postCard .header>.setting{
     display: flex;

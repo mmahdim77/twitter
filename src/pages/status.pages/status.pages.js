@@ -1,129 +1,100 @@
-
-import React, { useState } from 'react';
-import './home.styles.css';
+import React, { useState , useEffect } from 'react';
+import axios from 'axios';
+import './status.styles.css';
+import 'antd/dist/antd.css';
+import ProfileHeader from '../../components/profile-header.components/profile-header.components'
+import { Input } from 'antd';
 import Navbar from '../../components/navbar.components/navbar'
-import { Link , useParams} from 'react-router-dom'
-import WriteTweet from '../../components/write-tweet/write-tweet.components'
-import PostCard from '../../components/post-card.components/post-card.components'
 import Header from '../../components/header.components/header.components'
-import Profile from '../profile.pages/profile.pages'
+import { useParams } from "react-router-dom";
+import PostCard from '../../components/post-card.components/post-card.components'
 
-const Status = ({token}) => {
-    // let { email } = useParams();
-    const mainTweet = {
-        name: 'kalim', 
-        userName:'@kalim', 
-        avatar:'./material/avatar1.png', 
-        date: 'January 10, 2021 03:24:00',
-        postText: 'Eiusmod in elit incididunt ea Lorem nulla enim ad.',
-        postMedias: './material/cover.jpg',
-    }
-    const comments = [
-        {
-            name: 'mamad', 
-            userName:'@mamad', 
-            avatar:'./material/avatar2.png', 
-            date: 'January 25, 2021 03:24:00',
-            postText: 'Eiusmod in elit incididunt ea Lorem nulla enim ad.',
-            postMedias: './material/cover2.jpg',
-        },
-        {
-            name: 'ali', 
-            userName:'@ali', 
-            avatar:'./material/avatar1.png', 
-            date: 'January 25, 2021 011:20:00',
-            postText: 'Eiusmod in elit incididunt ea Lorem nulla enim ad.',
-            postMedias: './material/cover.jpg',
-        },
-        {
-            name: 'mamad', 
-            userName:'@mamad', 
-            avatar:'./material/avatar2.png', 
-            date: 'January 1, 2020 011:20:00',
-            postText: 'Eiusmod in elit incididunt ea Lorem nulla enim ad.',
-            postMedias: './material/cover2.jpg',
-        },
-        {
-            name: 'ali', 
-            userName:'@ali', 
-            avatar:'./material/avatar1.png', 
-            date: 'March 25, 2020 011:20:00',
-            postText: 'Eiusmod in elit incididunt ea Lorem nulla enim ad.',
-            postMedias: './material/cover.jpg',
-        },
-        {
-            name: 'mamad', 
-            userName:'@mamad', 
-            avatar:'./material/avatar2.png', 
-            date: 'January 25, 2021 023:21:00',
-            postText: 'Eiusmod in elit incididunt ea Lorem nulla enim ad.',
-            postMedias: './material/cover2.jpg',
-        },
-        {
-            name: 'ali', 
-            userName:'@ali', 
-            avatar:'./material/avatar1.png', 
-            date: 'January 25, 2021 023:23:00',
-            postText: 'Eiusmod in elit incididunt ea Lorem nulla enim ad.',
-            postMedias: './material/cover.jpg',
-        },
-        {
-            name: 'mamad', 
-            userName:'@mamad', 
-            avatar:'./material/avatar2.png', 
-            date: '',
-            postText: 'Eiusmod in elit incididunt ea Lorem nulla enim ad.',
-            postMedias: './material/cover2.jpg',
-        },
-        {
-            name: 'ali', 
-            userName:'@ali', 
-            avatar:'./material/avatar1.png', 
-            date: '',
-            postText: 'Eiusmod in elit incididunt ea Lorem nulla enim ad.',
-            postMedias: './material/cover.jpg',
-        },
-        {
-            name: 'mamad', 
-            userName:'@mamad', 
-            avatar:'./material/avatar2.png', 
-            date: '',
-            postText: 'Eiusmod in elit incididunt ea Lorem nulla enim ad.',
-            postMedias: './material/cover2.jpg',
-        },
-    ]
-    return (
-        <div className="status">
-            <Navbar/>
-            <div className="rightCol">
-                <Header route="home"/>
-                <PostCard 
-                            avatar={mainTweet.avatar}  
-                            name={mainTweet.name}  
-                            userName={mainTweet.userName}  
-                            date={mainTweet.date}  
-                            postText={mainTweet.postText}  
-                            postMedias={mainTweet.postMedias}  />
-                <WriteTweet/>
-                {
-                    comments.map(
-                        (tweet)=>
-                         (
-                         <PostCard 
-                            avatar={tweet.avatar}  
-                            name={tweet.name}  
-                            userName={tweet.userName}  
-                            date={tweet.date}  
-                            postText={tweet.postText}  
-                            postMedias={tweet.postMedias}  />
-                         )
+const Status = ({token, myUser}) => {
+    let { username , idx } = useParams();
+    const [mainTweet, setMainTweet] = useState(null);
+    const [comments, setComments] = useState([]);
+    const getComments = ()=>{
+        console.log('start')
+        axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/'+idx ).then(
+            res => {
+                console.log('main tweet')
+                console.log(res)
+                setMainTweet(res.data)
+                return res.data.comments
+            }
+        ).then(
+            cmnts => {
+                console.log("comments")
+                console.log(cmnts)
+                let id
+                let temp=[]
+                for (let i =0; i<cmnts.length ; i+=1){
+                    console.log("for")
+                    axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/'+cmnts[i] ).then(
+                        response => {
+                            temp.push(response.data)
+                        }
                     )
                 }
-            </div>
+                console.log("final temp" , [...temp])
+                setComments([...temp])
+            }
+        )
+    }
+    useEffect(() => {
+        getComments()
+    }, [idx])
 
+
+
+    return (
+        <div className="home">
+            <div className="left-col">
+                <Navbar/>
+            </div>
+            {
+                mainTweet?
+                <div className="right-col">
+                    <Header route="tweet" />
+                    <PostCard
+                        token ={token}
+                        pk={mainTweet.id}
+                        avatar={mainTweet.user.picture}
+                        name={mainTweet.user.name}
+                        userName={mainTweet.user.username}
+                        date={mainTweet.date}
+                        postText={mainTweet.text}
+                        postMedias={mainTweet.image}
+                    />
+                    {
+                        comments ?
+                        comments.map(
+                            (tweet) =>{
+                                console.log(tweet)
+                                return (
+                                    <PostCard
+                                        token ={token}
+                                        pk={tweet.id}
+                                        avatar={tweet.user.picture}
+                                        name={tweet.user.name}
+                                        userName={tweet.user.username}
+                                        date={tweet.date}
+                                        postText={tweet.text}
+                                        postMedias={tweet.image} />
+                                )
+                            }
+                        )
+                        :
+                        <div></div>
+                    }
+                </div>
+                
+                :
+                <div></div>
+            }
             
         </div>
     )
 }
 
-export default Home
+export default Status
