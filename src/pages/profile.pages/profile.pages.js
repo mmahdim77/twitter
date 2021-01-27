@@ -23,12 +23,20 @@ const { TextArea } = Input;
 
 
 
-const Profile = ({token}) => {
+const Profile = ({token, myUser}) => {
     let { username } = useParams();
     const [user, setUser] = useState(null);
+    let myusername;
+    if(myUser){
+        myusername =myUser.username
+    }
+    else{
+        myusername = null
+    }
 
     useEffect(() => {
-        axios.get('http://twitterapifinal.pythonanywhere.com/account/profile/'+username , {headers : {'Authorization' : 'Bearer  '+ token}}).then(
+        axios.get('http://twitterapifinal.pythonanywhere.com/account/profile/'+username ).then(
+            
             res => {
                 console.log(res.data)
                 setUser(res.data)
@@ -42,15 +50,18 @@ const Profile = ({token}) => {
                 <Navbar/>
             </div>
             {
+                
                 user?
                 <div className="right-col">
                     <Header route="profile" name={user.name} numOfTweets ="50"/>
                     <ProfileHeader 
+                        myusername={myusername}
                         avatar={user.picture}
                         cover={user.cover}
                         name={user.name}
                         userName={user.username}
                         created_at={user.created_at} 
+
                     />
                 </div>
                 :
