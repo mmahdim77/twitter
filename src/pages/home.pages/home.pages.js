@@ -14,12 +14,10 @@ const Home = ({ token , myUser }) => {
     const [tweetListObj, setTweetList] = useState(null);
 
     useEffect(() => {
-        console.log("myUser")
-        console.log(myUser)
         axios.get('http://twitterapifinal.pythonanywhere.com/twitt/list/' , {headers : {'Authorization' : 'Bearer  '+token}}).then(
                         res => {
-                            console.log("fetch tweets")
-                            console.log(res.data)
+                            // console.log("fetch tweets")
+                            // console.log(res.data)
                             setTweetList (res.data)
                         }
                     )
@@ -40,13 +38,8 @@ const Home = ({ token , myUser }) => {
                             <PostCard
                                 myUser={myUser}
                                 token = {token}
-                                pk = {tweet.id}
-                                avatar={tweet.user.picture}
-                                name={tweet.user.name}
-                                userName={tweet.user.username}
-                                date={tweet.date}
-                                postText={tweet.text}
-                                postMedias={tweet.image} />
+                                tweet ={tweet}
+                            />
                         )
                         
                     )

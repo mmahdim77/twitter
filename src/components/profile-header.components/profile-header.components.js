@@ -78,12 +78,14 @@ const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, 
     const follow = () => {
         axios.post('http://twitterapifinal.pythonanywhere.com/account/follow/', formData, { headers: { 'Authorization': 'Bearer  ' + token } }).then(
             res => {
+                console.log("follow")
+                console.log(res)
                 setHasFollowed(true)
             }
         )
     };
     const unfollow = () => {
-        console.log("hiii")
+        // console.log("hiii")
         axios.post('http://twitterapifinal.pythonanywhere.com/account/unfollow/', formData, { headers: { 'Authorization': 'Bearer  ' + token } }).then(
             res => {
                 setHasFollowed(false)

@@ -31,12 +31,12 @@ const WriteTweet = ({token}) => {
       };
     const sendTweet =()=>{
         let formData = {text : value , image : image , video: video }
-        console.log(formData)
-        console.log(token)
+        // console.log(formData)
+        // console.log(token)
         if(value.length>0)
             axios.post('http://twitterapifinal.pythonanywhere.com/twitt/create/', formData , {headers : {'Authorization' : 'Bearer  '+token}}).then(
                 res => {
-                    console.log(res)
+                    // console.log(res)
                 }
             ).catch(err=>console.log(err))
         else{

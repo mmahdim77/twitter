@@ -33,15 +33,23 @@ const Profile = ({token, myUser}) => {
     useEffect(() => {
         axios.get('http://twitterapifinal.pythonanywhere.com/account/profile/'+username ).then(
             res => {
+                // console.log(res.data)
                 setUser(res.data)
             }
         )
+        axios.get('http://twitterapifinal.pythonanywhere.com/twitt/twitt_profile/'+username ).then(
+            res => {
+                // console.log(res.data)
+                setTweets(res.data)
+            }
+        )
+
     }, [username])
 
     return (
         <div className="profile">
             <div className="left-col">
-                <Navbar/>
+                <Navbar username={myUser.username} />
             </div>
             {
                 user?
@@ -50,8 +58,8 @@ const Profile = ({token, myUser}) => {
                     <ProfileHeader 
                         token = {token}
                         myusername={myusername}
-                        avatar={user.picture}
-                        cover={user.cover}
+                        avatar={user.picture_url}
+                        cover={user.cover_url}
                         name={user.name}
                         userName={user.username}
                         created_at={user.created_at} 
@@ -62,19 +70,14 @@ const Profile = ({token, myUser}) => {
                         tweets ?
                         tweets.results.map(
                             (tweet) =>{
-                                console.log("tweet")
-                                console.log(tweet)
+                                // console.log("tweet")
+                                // console.log(tweet)
                                 return (
                                     <PostCard
                                         myUser={myUser}
                                         token = {token}
-                                        pk ={tweet.id}
-                                        avatar={tweet.user.picture}
-                                        name={tweet.user.name}
-                                        userName={tweet.user.username}
-                                        date={tweet.date}
-                                        postText={tweet.text}
-                                        postMedias={tweet.image} />
+                                        tweet = {tweet}
+                                    />
                                 )
                             }
                         )

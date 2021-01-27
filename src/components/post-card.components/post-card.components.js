@@ -15,22 +15,27 @@ import axios from 'axios';
 
 
 
-const PostCard = ({ myUser,token, avatar, name, userName, date, postText, postMedias, pk }) => {
+const PostCard = ({ tweet ,myUser,token }) => {
     const likedBy = ['ali', 'hasan', 'mohsen']
+    const avatar=tweet.user.picture_url
+    const name = tweet.user.name
+    const userName = tweet.user.username
+    const date = tweet.date
+    const postText = tweet.text
+    const postMedias = tweet.image
+    const pk = tweet.id
+    let history = useHistory()
     const [liked, setLiked] = useState(null);
     const dateFloor = (Date.now() - new Date(date)) / 1000
     let formData = { pk: pk }
     let whoLikes=[]
     useEffect(() => {
-        console.log(pk)
-        axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/2' ).then(
+        axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/'+pk ).then(
             res => {
-                console.log(res)
+                // console.log(res)
                 if (res.data.likes.length > 0) {
                     res.data.likes.forEach(
-                        function (result) {
-                            whoLikes.push(result.target.username)
-                        }
+                        (result) => whoLikes.push(result)
                     )
                 }
             }
@@ -47,7 +52,7 @@ const PostCard = ({ myUser,token, avatar, name, userName, date, postText, postMe
 
     const like = () => {
         setLiked(true)
-        console.log("lie")
+        // console.log("lie")
         axios.post('http://twitterapifinal.pythonanywhere.com/twitt/like/', formData, { headers: { 'Authorization': 'Bearer  ' + token } }).then(
             res => {
                 setLiked(true)
@@ -55,10 +60,10 @@ const PostCard = ({ myUser,token, avatar, name, userName, date, postText, postMe
         )
     };
     const retweet = () => {
-        console.log("retweeted")
+        // console.log("retweeted")
     }
     const comments = () => {
-        console.log("comments")
+        // console.log("comments")
     }
     const menu = (id) => (
         <Menu>

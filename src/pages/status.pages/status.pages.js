@@ -14,29 +14,29 @@ const Status = ({token, myUser}) => {
     const [mainTweet, setMainTweet] = useState(null);
     const [comments, setComments] = useState([]);
     const getComments = ()=>{
-        console.log('start')
+        // console.log('start')
         axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/'+idx ).then(
             res => {
-                console.log('main tweet')
-                console.log(res)
+                // console.log('main tweet')
+                // console.log(res)
                 setMainTweet(res.data)
                 return res.data.comments
             }
         ).then(
             cmnts => {
-                console.log("comments")
-                console.log(cmnts)
+                // console.log("comments")
+                // console.log(cmnts)
                 let id
                 let temp=[]
                 for (let i =0; i<cmnts.length ; i+=1){
-                    console.log("for")
+                    // console.log("for")
                     axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/'+cmnts[i] ).then(
                         response => {
                             temp.push(response.data)
                         }
                     )
                 }
-                console.log("final temp" , [...temp])
+                // console.log("final temp" , [...temp])
                 setComments([...temp])
             }
         )
@@ -50,37 +50,28 @@ const Status = ({token, myUser}) => {
     return (
         <div className="home">
             <div className="left-col">
-                <Navbar/>
+                <Navbar username={myUser.username} />
             </div>
             {
                 mainTweet?
                 <div className="right-col">
                     <Header route="tweet" />
                     <PostCard
+                        myUser ={myUser}
                         token ={token}
-                        pk={mainTweet.id}
-                        avatar={mainTweet.user.picture}
-                        name={mainTweet.user.name}
-                        userName={mainTweet.user.username}
-                        date={mainTweet.date}
-                        postText={mainTweet.text}
-                        postMedias={mainTweet.image}
+                        tweet ={mainTweet}
                     />
                     {
                         comments ?
                         comments.map(
                             (tweet) =>{
-                                console.log(tweet)
+                                // console.log(tweet)
                                 return (
                                     <PostCard
                                         token ={token}
-                                        pk={tweet.id}
-                                        avatar={tweet.user.picture}
-                                        name={tweet.user.name}
-                                        userName={tweet.user.username}
-                                        date={tweet.date}
-                                        postText={tweet.text}
-                                        postMedias={tweet.image} />
+                                        myUser = {myUser}
+                                        tweet = {tweet}
+                                    />
                                 )
                             }
                         )
