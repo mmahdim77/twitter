@@ -12,7 +12,7 @@ import Navbar from '../../components/navbar.components/navbar'
 import Header from '../../components/header.components/header.components'
 import { useParams } from "react-router-dom";
 import PostCard from '../../components/post-card.components/post-card.components'
-
+import Search from '../../components/search.components/search.components'
 
 const { TextArea } = Input;
 
@@ -87,7 +87,18 @@ const Profile = ({token, myUser,refreshToken}) => {
                 :
                 <div></div>
             }
-            
+            <div
+                style={
+                    {
+                        marginLeft : "140px",
+                        marginTop :"20px"
+                    }
+                }
+            >
+            <Search
+                 myUser={myUser}
+                 token = {token}/>
+            </div>
         </div>
     )
 }

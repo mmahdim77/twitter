@@ -48,8 +48,17 @@ const Home = ({ token , myUser ,refreshToken}) => {
                 }
             </div>
 
-            <div>
-                <Search/>
+            <div
+                style={
+                    {
+                        marginLeft : "140px",
+                        marginTop :"20px"
+                    }
+                }
+            >
+            <Search
+                 myUser={myUser}
+                 token = {token}/>
             </div>
         </div>
     )
