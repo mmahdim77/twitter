@@ -63,8 +63,25 @@ const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, 
     const showModal = () => {
         setIsModalOpen(true);
     };
+
     const handleOk = () => {
         setIsModalOpen(false);
+        console.log("edit1")
+        axios.get('http://twitterapifinal.pythonanywhere.com/account/myprofile/', { headers: { 'Authorization': 'Bearer  ' + token } }).then(
+            res => {
+                let n, u, e;
+                newName ? n = newName : n = name;
+                newEmail ? e = newEmail : e = email;
+                newUsername ? u = newUsername : u = userName;
+                let editedData = { username: u, name: n, email: e ,image:null}
+                console.log(res.data.id)
+                axios.put('http://twitterapifinal.pythonanywhere.com/account/update_profile/' + res.data.id+ '/',editedData , { headers: { 'Authorization': 'Bearer  ' + token } }).then(
+                    result => {
+                        console.log(result)
+                    }
+                ).catch(err=>console.log(err))
+            }
+        )
     };
 
     const handleCancel = () => {
@@ -223,7 +240,7 @@ const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, 
                         <div className="followBtn">
 
                             <Button type="default" shape="round" size={"large"} onClick={showModal}> Edit </Button>
-                            <Modal style={{ borderRadius: "100px" }} className="modal" width="800px" footer={null} visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                            <Modal style={{ borderRadius: "100px" }} className="modal" width="800px" visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                                 <div className="profile-header">
 
                                     <div className="cover">
@@ -248,7 +265,7 @@ const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, 
 
 
                                         }
-                                        <Upload {...props} 
+                                        <Upload {...props}
                                         >
                                             <FileImageOutlined />
                                         </Upload>
