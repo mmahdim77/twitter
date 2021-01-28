@@ -26,7 +26,7 @@ const Home = ({ token , myUser ,refreshToken}) => {
     return (
         <div className="home">
             <div className="leftCol">
-                <Navbar myUser={myUser} refreshToken={refreshToken} />
+                <Navbar myUser={myUser} refreshToken={refreshToken} token={token} />
             </div>
             <div className="rightCol">
                 <Header route="home" />

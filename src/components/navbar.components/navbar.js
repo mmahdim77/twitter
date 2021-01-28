@@ -9,11 +9,18 @@ import { Button, Avatar, Menu, Dropdown } from 'antd';
 import axios from 'axios';
 
 
-function Navbar({ myUser,refreshToken }) {
+function Navbar({ myUser,refreshToken , token }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const logout = ()=>{
     let formData = { refresh_token: refreshToken}
-    axios.post('http://twitterapifinal.pythonanywhere.com/account/logout/', formData)
+    axios.post('http://twitterapifinal.pythonanywhere.com/account/logout/', formData, {headers : {'Authorization' : 'Bearer  '+token}}).then(
+      (res) => {
+
+        localStorage.removeItem('token')
+        localStorage.removeItem('myUser')
+
+      }
+    )
   }
   let menu
   myUser ? 
@@ -31,7 +38,7 @@ function Navbar({ myUser,refreshToken }) {
         </div>
       </div>
       <Menu.Divider />
-      <Menu.Item className="menu" onclick={logout}><Link to="/">
+      <Menu.Item className="menu" onClick={logout}><Link to="/">
         Log out
         </Link></Menu.Item>
     </Menu>

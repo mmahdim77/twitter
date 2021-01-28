@@ -37,7 +37,7 @@ export default function LoginPage({setRefreshToken, setToken, isModalOpen, setIs
         let formData = { "email": email, "password": password }
         axios.post('http://twitterapifinal.pythonanywhere.com/account/login/', formData).then(
             res => {
-                console.log(res.status)
+                console.log(res)
                 if (res.status === 200) {
                     // console.log(res.data.access)
                     axios.get('http://twitterapifinal.pythonanywhere.com/account/myprofile/' , {headers : {'Authorization' : 'Bearer  '+res.data.access}}).then(

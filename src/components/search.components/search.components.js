@@ -4,7 +4,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import PostCard from '../../components/post-card.components/post-card.components'
 import axios from 'axios'
 const { Search } = Input;
-const SearchCom = (myUser, token) => {
+const SearchCom = ({myUser, token}) => {
     
     const [isModalOpen, setIsModalOpen] = useState(null);
     const showModal = () => {
@@ -22,24 +22,24 @@ const SearchCom = (myUser, token) => {
     const search = (value) => {
         setTweetList(null)
         setSerachItem(value)
-        if (searchItem) {
-            if (searchItem[0] === "#") {
-                axios.get('http://twitterapifinal.pythonanywhere.com/twitt/Search_View/*' + searchItem.substring(1)).then(
+        if (value) {
+            if (value[0] === "#") {
+                axios.get('http://twitterapifinal.pythonanywhere.com/twitt/Search_View/*' + value.substring(1)).then(
                     res => {
                         setTweetList([...res.data])
                     }
                 )
             }
             else {
-                if (searchItem[0] === "@") {
-                    axios.get('http://twitterapifinal.pythonanywhere.com/twitt/Search_View/@' + searchItem.substring(1)).then(
+                if (value[0] === "@") {
+                    axios.get('http://twitterapifinal.pythonanywhere.com/twitt/Search_View/@' + value.substring(1)).then(
                         res => {
                             setTweetList([...res.data])
                         }
                     )
                 }
                 else {
-                    axios.get('http://twitterapifinal.pythonanywhere.com/twitt/Search_View/' + searchItem).then(
+                    axios.get('http://twitterapifinal.pythonanywhere.com/twitt/Search_View/' + value).then(
                         res => {
                             setTweetList([...res.data])
                         }

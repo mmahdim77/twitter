@@ -40,11 +40,11 @@ const WriteTweet = ({token , commentTo}) => {
         //     formData.append('pk', commentTo);
         // }
         let formData = commentTo ==null ? {'text' : value , 'image' : image , 'video': video } : {'pk' : commentTo, 'text' : value , 'image' : image , 'video': video }
-        // console.log(formData)
+        console.log(formData)
         // console.log(token)
         if(value.length>0)
             if(commentTo ==null)
-                axios.post('http://twitterapifinal.pythonanywhere.com/twitt/create/', formData , {headers : {'Authorization' : 'Bearer  '+token , 'Content-Type': 'multipart/form-data'}}).then(
+                axios.post('http://twitterapifinal.pythonanywhere.com/twitt/create/', formData , {headers : {'Authorization' : 'Bearer  '+token }}).then(
                     res => {
                         // console.log(res)
                     }

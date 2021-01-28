@@ -59,7 +59,7 @@ import PostCard from '../../components/post-card.components/post-card.components
       return (
         <div className="home">
             <div className="left-col">
-                <Navbar myUser={this.props.myUser} refreshToken ={this.props.refreshToken} />
+                <Navbar myUser={this.props.myUser} refreshToken ={this.props.refreshToken} token={this.props.token}/>
             </div>
             {
                 this.state.mainTweet?

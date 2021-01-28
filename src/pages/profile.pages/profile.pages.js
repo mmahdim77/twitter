@@ -51,7 +51,7 @@ const Profile = ({token, myUser,refreshToken}) => {
     return (
         <div className="profile">
             <div className="left-col">
-                <Navbar myUser={myUser} refreshToken={refreshToken} />
+                <Navbar myUser={myUser} refreshToken={refreshToken} token={token} />
             </div>
             {
                 user?

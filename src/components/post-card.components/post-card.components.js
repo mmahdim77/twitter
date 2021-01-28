@@ -35,8 +35,8 @@ const PostCard = ({ tweet, myUser, token , deleteP , index }) => {
     let whoLikes = []
     let retweetedList = []
     useEffect(() => {
-        // console.log("ssssss")
-        // console.log(tweet)
+        console.log("ssssss")
+        console.log(tweet)
         setCommentsLen(tweet.comments.length)
         axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/' + pk).then(
 
@@ -59,13 +59,15 @@ const PostCard = ({ tweet, myUser, token , deleteP , index }) => {
         )
             .then(
                 () => {
-                    let found = whoLikes.find(element => element === myUser.username);
+                    if (myUser!=null){
+                        let found = whoLikes.find(element => element === myUser.username);
 
-                    found ? setLiked(true) : setLiked(false);
+                        found ? setLiked(true) : setLiked(false);
 
-                    found = retweetedList.find(element => element === myUser.username);
+                        found = retweetedList.find(element => element === myUser.username);
 
-                    found ? setRetweeted(true) : setRetweeted(false);
+                        found ? setRetweeted(true) : setRetweeted(false);
+                    }
 
                 }
             )
@@ -202,10 +204,14 @@ const PostCard = ({ tweet, myUser, token , deleteP , index }) => {
                         <div className="setting">
                             {/* <Dropdown overlay={() => menu(1)} onClick={(e) => e.stopPropagation()}> */}
                             {
-                                myUser.username==tweet.user.username ?
+                                myUser == null ?
+                                <EllipsisOutlined />
+                                :
+                                myUser.username==tweet.user.username || retweeted ?
                                 <DeleteOutlined className="ant-dropdown-link" onClick={deletePost} />
                                 :
                                 <EllipsisOutlined />
+
                             }
                             {/* </Dropdown> */}
 
