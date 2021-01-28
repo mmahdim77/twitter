@@ -53,3 +53,7 @@
 .avatar-user .username{
 
 }
+.search-col{
+    display: flex;
+    flex-direction: column;
+}

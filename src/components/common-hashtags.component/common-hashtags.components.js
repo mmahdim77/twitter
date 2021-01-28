@@ -6,14 +6,31 @@ import axios from 'axios'
 import './common-hashtags.styles.css';
 
 const CommonHashtags = ({}) => {
+    const [commonTags, setCommonTags] = useState([]);
     useEffect(()=>{
         axios.get('http://twitterapifinal.pythonanywhere.com/twitt/top_hashtags').then(
-            
+            res =>{
+                console.log("common tags")
+                console.log(res.data.results)
+                setCommonTags(res.data.results)
+            }
         )
     },[])
     return (
         <div className="top-hashtags">
-            
+            {/* <h1>هشتگ های برتر</h1> */}
+            {
+                commonTags.map(
+                    hashtag => {
+                        return(
+                            <div>
+                                <h3>#{hashtag.name}({hashtag.occurrences})</h3>
+                                {/* <h4>count:{hashtag.occurrences}</h4> */}
+                            </div>
+                        )
+                    }
+                )
+            }
         </div>
     )
 }

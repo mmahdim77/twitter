@@ -13,6 +13,7 @@ import Header from '../../components/header.components/header.components'
 import { useParams } from "react-router-dom";
 import PostCard from '../../components/post-card.components/post-card.components'
 import Search from '../../components/search.components/search.components'
+import CommonHashtags from '../../components/common-hashtags.component/common-hashtags.components'
 
 const { TextArea } = Input;
 
@@ -92,18 +93,11 @@ const Profile = ({token, myUser,refreshToken}) => {
                 :
                 <div></div>
             }
-            <div
-                style={
-                    {
-                        marginLeft : "140px",
-                        marginTop :"20px"
-                    }
-                }
-            >
-            <Search
-                 myUser={myUser}
-                 token = {token}/>
+            <div className="search-col"  style={{ marginLeft : "140px", marginTop :"20px"}}>
+                <Search myUser={myUser} token = {token}/>
+                <CommonHashtags />
             </div>
+            
         </div>
     )
 }

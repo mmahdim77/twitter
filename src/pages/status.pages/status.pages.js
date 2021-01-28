@@ -8,6 +8,9 @@ import Navbar from '../../components/navbar.components/navbar'
 import Header from '../../components/header.components/header.components'
 import { withRouter } from "react-router";
 import PostCard from '../../components/post-card.components/post-card.components'
+import CommonHashtags from '../../components/common-hashtags.component/common-hashtags.components'
+import Search from '../../components/search.components/search.components'
+
  class Status extends React.Component {
     constructor(props) {
       super(props);
@@ -91,6 +94,10 @@ import PostCard from '../../components/post-card.components/post-card.components
                 :
                 <div></div>
             }
+            <div className="search-col"  style={{ marginLeft : "140px", marginTop :"20px"}}>
+                <Search myUser={this.props.myUser} token={this.props.token}/>
+                <CommonHashtags />
+            </div>
         </div>
       )
     }

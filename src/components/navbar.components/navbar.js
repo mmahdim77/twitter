@@ -84,7 +84,7 @@ function Navbar({ myUser,refreshToken , token }) {
                 </Link>
               </div>
               <Modal className="modal" width="550px" footer={null} closable={false} visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <WriteTweet />
+                <WriteTweet token={token} />
               </Modal>
             </div>
             :

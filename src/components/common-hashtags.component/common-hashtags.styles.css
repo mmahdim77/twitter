@@ -1,0 +1,16 @@
+.top-hashtags{
+    display: flex;
+    flex-direction: row-reverse;
+    width: 300px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.top-hashtags>div{
+    padding: 0px 5px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+.top-hashtags>div>*{
+    padding: 0px 5px;
+;
+}

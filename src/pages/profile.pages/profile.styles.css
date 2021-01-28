@@ -13,3 +13,7 @@
     margin: 10px;
     height: 90vh;
 }
+.search-col{
+    display: flex;
+    flex-direction: column;
+}
