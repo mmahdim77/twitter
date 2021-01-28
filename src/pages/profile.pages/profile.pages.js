@@ -16,6 +16,8 @@ import Search from '../../components/search.components/search.components'
 import CommonHashtags from '../../components/common-hashtags.component/common-hashtags.components'
 import { Link } from 'react-router-dom'
 import { HomeOutlined } from '@ant-design/icons';
+import LogComp from '../../components/logs.component/logs.component'
+
 const { TextArea } = Input;
 
 
