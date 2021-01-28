@@ -12,6 +12,7 @@ import Search from '../../components/search.components/search.components'
 import CommonHashtags from '../../components/common-hashtags.component/common-hashtags.components'
 import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 import LogComp from '../../components/logs.component/logs.component'
+import Event from '../../components/event.components/event.components'
 
 const Home = ({ token , myUser ,refreshToken}) => {
     const [tweetListObj, setTweetList] = useState(null);
@@ -72,7 +73,7 @@ const Home = ({ token , myUser ,refreshToken}) => {
             <div className="search-col"  >
                 <Search myUser={myUser} token = {token}/>
                 <CommonHashtags />
-                <LogComp token={token} />
+                <Event />
             </div>
         </div>
     )

@@ -220,7 +220,6 @@ const PostCard = ({ tweet, myUser, token , deleteP , index }) => {
                     </div>
                     <div className="post">
                         <div className="tweetText">{postText}</div>
-                        {video}
                         <div className="media">
                             <img src={postMedias}></img>
                             {

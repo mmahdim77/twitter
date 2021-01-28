@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useState , useEffect } from 'react';
 
-const LogComp = ({ token , myUser ,refreshToken}) => {
+const Event = ({ token , myUser ,refreshToken}) => {
     const [followl, setfollowl] = useState(null);
     const [likel, setlikel] = useState(null);
     const [retwittl, setretwittl] = useState(null);
@@ -9,25 +9,25 @@ const LogComp = ({ token , myUser ,refreshToken}) => {
     useEffect(
         ()=>{
             const timer = setTimeout(function(){ 
-                axios.get('http://twitterapifinal.pythonanywhere.com/account/myprofile/' , {headers : {'Authorization' : 'Bearer  '+token}}).then(
+                axios.get('http://twitterapifinal.pythonanywhere.com/account/event/' , {headers : {'Authorization' : 'Bearer  '+token}}).then(
                                 
                                 res => {
-                                    if(res.data.likel!= null){
-                                        let temp=[...res.data.likel]
+                                    if(res.data.likes!= null){
+                                        let temp=[...res.data.likes]
                                         setlikel([...temp])
                                     }
-                                    if(res.data.followl !=null ){
-                                        let temp=[...res.data.followl]
+                                    if(res.data.follow !=null ){
+                                        let temp=[...res.data.follow]
                                         setfollowl(temp)
                                     }
-                                    if(res.data.retwittl != null){
-                                        let temp=[...res.data.retwittl]
+                                    if(res.data.retwitt != null){
+                                        let temp=[...res.data.retwitt]
                                         setretwittl(temp)
                                     }
          
                                 }
                             ).catch(err=>console.log(err))
-             }, 1000);
+             }, 15000);
         }
     )
    
@@ -35,46 +35,46 @@ const LogComp = ({ token , myUser ,refreshToken}) => {
 
     return(
     <div>
-        <h3>likes log: </h3>
+        <h3>like event: </h3>
         {
             likel != null?
             likel.map(
                 (item) => (
                     <div>
-                        <span>tweet {item[0]} liked on {item[1]} by you</span>
+                        <span>{item[0]} liked your post on {item[1]}</span>
                     </div>
                 )
             )
             :
-            <div>No like log</div>
+            <div></div>
         }
-        <h3>follows log: </h3>
+        <h3>follows event: </h3>
         {
             followl != null?
             followl.map(
                 (item) => (
                     <div>
-                        <span>you followed {item[0]} on {item[1]}  </span>
+                        <span>you followed by {item[0]} on {item[1]}  </span>
                     </div>
                 )
             )
             :
-            <div>No follow log</div>
+            <div></div>
         }
-        <h3>retweet log: </h3>
+        <h3>retweet event: </h3>
         {
             retwittl != null?
             retwittl.map(
                 (item) => (
                     <div>
-                        <span>post {item[0]} retwitted on {item[1]} by you  </span>
+                        <span>your post retwitted by {item[0]} on {item[1]}  </span>
                     </div>
                 )
             )
             :
-            <div>No follow log</div>
+            <div></div>
         }
     </div>
     )
 }
-export default LogComp
+export default Event

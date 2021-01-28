@@ -113,6 +113,7 @@ const Profile = ({token, myUser,refreshToken}) => {
             <div className="search-col"  >
                 <Search myUser={myUser} token = {token}/>
                 <CommonHashtags />
+                <LogComp token={token} />
             </div>
             
         </div>
