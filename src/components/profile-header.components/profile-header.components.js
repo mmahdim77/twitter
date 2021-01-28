@@ -2,19 +2,24 @@
 import React, { useState, useEffect } from 'react';
 import './profile-header.styles.css';
 import 'antd/dist/antd.css';
-import { Avatar, Dropdown, Menu, Button, Modal } from 'antd';
+import { Avatar, Upload, Button, Modal, message } from 'antd';
 import { Link } from 'react-router-dom';
 import PermMediaIcon from '@material-ui/icons/PermMedia';
-import { UserOutlined, UserAddOutlined } from '@ant-design/icons';
+import { UserOutlined, UserAddOutlined, FileImageOutlined } from '@ant-design/icons';
 // import CustomButton from '../custom-button/custom-button.component' 
 // import {useState , useEffect} from 'react';
 import axios from 'axios';
 import { Input } from 'antd';
-const { TextArea } = Input;
 
 
 
 const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, email }) => {
+
+    const [newImage, setNewImage] = useState(cover);
+    const [newCover, setNewCover] = useState(avatar);
+    const [newEmail, setNewEmail] = useState(null);
+    const [newName, setNewName] = useState(null);
+    const [newUsername, setNewUsername] = useState(null);
     const [hasFollowed, setHasFollowed] = useState(null);
     let following = [];
     useEffect(() => {
@@ -39,7 +44,19 @@ const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, 
     }, [userName])
 
 
-
+    const props = {
+        setNewCover,
+        onChange(info) {
+            if (info.file.status !== 'uploading') {
+                console.log(info.file, info.fileList);
+            }
+            if (info.file.status === 'done') {
+                message.success(`${info.file.name} file uploaded successfully`);
+            } else if (info.file.status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        },
+    };
 
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -55,25 +72,7 @@ const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, 
     };
 
 
-    const editMenu = (
-        <Menu>
-            <div className="avatar-user" >
-                <Avatar className="avatar" />
-                <div className="container">
-                    <div className="name" >
-                        folani
-                    </div>
-                    <div className="username" >
-                        @folani
-                    </div>
-                </div>
-            </div>
-            <Menu.Divider />
-            <Menu.Item className="menu"><Link to="/">
-                Log out
-            </Link></Menu.Item>
-        </Menu>
-    );
+
     let formData = { email: email }
     const follow = () => {
         axios.post('http://twitterapifinal.pythonanywhere.com/account/follow/', formData, { headers: { 'Authorization': 'Bearer  ' + token } }).then(
@@ -130,11 +129,11 @@ const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, 
                                     <div>
                                         {
                                             hasFollowed == true ?
-                                                <Button className="unfollow" type="default" shape="round"  onClick={unfollow} > Unfollow </Button>
+                                                <Button className="unfollow" type="default" shape="round" onClick={unfollow} > Unfollow </Button>
                                                 :
                                                 hasFollowed == false ?
-                                                    <Button className="follow" type="default" shape="round"  onClick={follow} > Follow </Button> :
-                                                <div></div>
+                                                    <Button className="follow" type="default" shape="round" onClick={follow} > Follow </Button> :
+                                                    <div></div>
                                         }
 
                                     </div>
@@ -155,19 +154,19 @@ const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, 
                                                 } >
 
 
-                                                <UserAddOutlined   style={{margin:"40px",fontSize:"60px",color:"rgb(28, 164, 252)"}} />
+                                                <UserAddOutlined style={{ margin: "40px", fontSize: "60px", color: "rgb(28, 164, 252)" }} />
 
 
                                                 <div>
                                                     <h1>
-                                                    Follow {" "}
-                                                    <span
-                                                        style={{ fontStyle: "italic" }}>
-                                                        {userName}
-                                                    </span> to see what they share on Twitter.
+                                                        Follow {" "}
+                                                        <span
+                                                            style={{ fontStyle: "italic" }}>
+                                                            {userName}
+                                                        </span> to see what they share on Twitter.
                                                 </h1>
-                                                <div style={{margin:"40px"}}>
-                                                    Sign up so you never miss their Tweets.
+                                                    <div style={{ margin: "40px" }}>
+                                                        Sign up so you never miss their Tweets.
                                                 </div>
                                                 </div>
 
@@ -222,16 +221,71 @@ const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, 
                         </div>
                         :
                         <div className="followBtn">
-                            <Dropdown
-                                id="1"
-                                className="dropdown"
-                                placement="topCenter"
-                                overlay={editMenu}
-                                trigger={['click']}
-                                getPopupContainer={trigger => trigger.parentNode}
-                            >
-                                <Button type="default" shape="round" size={"large"} onClick={edit}> Edit </Button>
-                            </Dropdown>
+
+                            <Button type="default" shape="round" size={"large"} onClick={showModal}> Edit </Button>
+                            <Modal style={{ borderRadius: "100px" }} className="modal" width="800px" footer={null} visible={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                                <div className="profile-header">
+
+                                    <div className="cover">
+                                        <img src={cover ? cover : noImage}></img>
+                                        <div style={{
+                                            marginLeft: "98%"
+                                        }} >
+                                            <Upload {...props}>
+                                                <FileImageOutlined />
+                                            </Upload>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div className="avatar">
+                                        {
+                                            avatar ?
+                                                <Avatar size={142} src={avatar} />
+                                                :
+                                                <Avatar size={142} icon={<UserOutlined />} />
+
+
+                                        }
+                                        <Upload {...props} 
+                                        >
+                                            <FileImageOutlined />
+                                        </Upload>
+
+                                    </div>
+                                </div>
+                                <div
+                                    style={
+
+                                        {
+                                            marginTop: "90px",
+                                        }
+                                    }>
+                                    <label>
+                                        <Input
+                                            style={
+
+                                                {
+                                                    marginBottom: "10px",
+                                                }
+                                            } className="input" value={newName} placeholder="Name" onChange={(e) => setNewName(e.target.value)} />
+                                    </label>
+                                    <label>
+                                        <Input
+                                            style={
+
+                                                {
+                                                    marginBottom: "10px",
+                                                }
+                                            } className="input" value={newUsername} placeholder="Username" onChange={(e) => setNewUsername(e.target.value)} />
+                                    </label>
+                                    <label
+                                    >
+                                        <Input className="input" value={newEmail} placeholder="Email" onChange={(e) => setNewEmail(e.target.value)} />
+                                    </label>
+                                </div>
+                            </Modal>
 
                         </div>
                     }

@@ -8,12 +8,13 @@ import { Link, useParams } from 'react-router-dom'
 import WriteTweet from '../../components/write-tweet/write-tweet.components'
 import PostCard from '../../components/post-card.components/post-card.components'
 import Header from '../../components/header.components/header.components'
-
+import Search from '../../components/search.components/search.components'
 
 const Home = ({ token , myUser ,refreshToken}) => {
     const [tweetListObj, setTweetList] = useState(null);
 
     useEffect(() => {
+        console.log(token)
         axios.get('http://twitterapifinal.pythonanywhere.com/twitt/list/' , {headers : {'Authorization' : 'Bearer  '+token}}).then(
                         res => {
                             // console.log("fetch tweets")
@@ -49,7 +50,18 @@ const Home = ({ token , myUser ,refreshToken}) => {
                 }
             </div>
 
-
+            <div
+                style={
+                    {
+                        marginLeft : "140px",
+                        marginTop :"20px"
+                    }
+                }
+            >
+            <Search
+                 myUser={myUser}
+                 token = {token}/>
+            </div>
         </div>
     )
 }
