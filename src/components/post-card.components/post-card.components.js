@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './post-card.styles.css';
 import { Avatar } from 'antd';
-import { UserOutlined, CommentOutlined, HeartFilled, RetweetOutlined, LikeOutlined, EllipsisOutlined } from '@ant-design/icons';
+import { UserOutlined,DeleteOutlined, CommentOutlined, HeartFilled, RetweetOutlined, LikeOutlined, EllipsisOutlined } from '@ant-design/icons';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import IconButton from '@material-ui/core/IconButton';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
@@ -14,7 +14,7 @@ import WriteTweet from '../write-tweet/write-tweet.components'
 // import {useState , useEffect} from 'react';
 import axios from 'axios';
 
-const PostCard = ({ tweet, myUser, token }) => {
+const PostCard = ({ tweet, myUser, token , deleteP , index }) => {
     const likedBy = ['ali', 'hasan', 'mohsen']
     const avatar = tweet.user.picture_url
     const name = tweet.user.name
@@ -35,13 +35,13 @@ const PostCard = ({ tweet, myUser, token }) => {
     let whoLikes = []
     let retweetedList = []
     useEffect(() => {
-        console.log("ssssss")
-        console.log(tweet)
+        // console.log("ssssss")
+        // console.log(tweet)
         setCommentsLen(tweet.comments.length)
         axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/' + pk).then(
 
             res => {
-                console.log(res.data)
+                // console.log(res.data)
                 if (res.data.likes.length > 0) {
                     res.data.likes.forEach(
                         (result) => whoLikes.push(result)
@@ -74,7 +74,7 @@ const PostCard = ({ tweet, myUser, token }) => {
 
     const like = (e) => {
         e.stopPropagation();
-        console.log("inja")
+        // console.log("inja")
         axios.post('http://twitterapifinal.pythonanywhere.com/twitt/like/', formData, { headers: { 'Authorization': 'Bearer  ' + token } }).then(
             res => {
                 console.log("inja")
@@ -124,7 +124,7 @@ const PostCard = ({ tweet, myUser, token }) => {
               
             </a>
           </Menu.Item> */}
-            <Menu.Item danger>delete {id}</Menu.Item>
+            <Menu.Item danger onClick={deletePost}>delete {pk}</Menu.Item>
         </Menu>
     );
     const openPostCard = (e) => {
@@ -144,6 +144,19 @@ const PostCard = ({ tweet, myUser, token }) => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
+    const deletePost = (e) =>{
+        console.log(e)
+        e.stopPropagation()
+        e.preventDefault()
+        axios.post('http://twitterapifinal.pythonanywhere.com/twitt/delete/', {'id' : pk}, { headers: { 'Authorization': 'Bearer  ' + token } }).then(
+            res => {
+                console.log("delete")
+                console.log(res)
+                deleteP(index)
+            }
+        )
+
+    }
     return (
         <div className="postCard" onClick={openPostCard}>
             {
@@ -187,9 +200,14 @@ const PostCard = ({ tweet, myUser, token }) => {
                             }
                         </div>
                         <div className="setting">
-                            <Dropdown overlay={() => menu(1)}>
-                                <EllipsisOutlined className="ant-dropdown-link" onClick={e => e.preventDefault()} />
-                            </Dropdown>
+                            {/* <Dropdown overlay={() => menu(1)} onClick={(e) => e.stopPropagation()}> */}
+                            {
+                                myUser.username==tweet.user.username ?
+                                <DeleteOutlined className="ant-dropdown-link" onClick={deletePost} />
+                                :
+                                <EllipsisOutlined />
+                            }
+                            {/* </Dropdown> */}
 
                         </div>
                     </div>

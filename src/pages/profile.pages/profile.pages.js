@@ -45,6 +45,9 @@ const Profile = ({token, myUser,refreshToken}) => {
 
     }, [username])
 
+    const del = (idx)=>{
+
+    }
     return (
         <div className="profile">
             <div className="left-col">
@@ -67,7 +70,7 @@ const Profile = ({token, myUser,refreshToken}) => {
                     {
                         tweets ?
                         tweets.results.map(
-                            (tweet) =>{
+                            (tweet , idx) =>{
                                 // console.log("tweet")
                                 // console.log(tweet)
                                 return (
@@ -75,6 +78,8 @@ const Profile = ({token, myUser,refreshToken}) => {
                                         myUser={myUser}
                                         token = {token}
                                         tweet = {tweet}
+                                        deleteP = {del}
+                                        index= {idx}
                                     />
                                 )
                             }

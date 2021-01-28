@@ -33,12 +33,13 @@ const Home = ({ token , myUser ,refreshToken}) => {
                 {
                     tweetListObj ?
                     tweetListObj.results.map(
-                        (tweet) =>
+                        (tweet , idx) =>
                         (
                             <PostCard
                                 myUser={myUser}
                                 token = {token}
                                 tweet ={tweet}
+                                
                             />
                         )
                         
