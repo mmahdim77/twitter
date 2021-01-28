@@ -10,8 +10,8 @@ const CommonHashtags = ({}) => {
     useEffect(()=>{
         axios.get('http://twitterapifinal.pythonanywhere.com/twitt/top_hashtags').then(
             res =>{
-                console.log("common tags")
-                console.log(res.data.results)
+                // console.log("common tags")
+                // console.log(res.data.results)
                 setCommonTags(res.data.results)
             }
         )

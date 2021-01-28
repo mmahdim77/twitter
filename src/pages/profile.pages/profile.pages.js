@@ -14,7 +14,8 @@ import { useParams } from "react-router-dom";
 import PostCard from '../../components/post-card.components/post-card.components'
 import Search from '../../components/search.components/search.components'
 import CommonHashtags from '../../components/common-hashtags.component/common-hashtags.components'
-
+import { Link } from 'react-router-dom'
+import { HomeOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 
 
@@ -57,6 +58,22 @@ const Profile = ({token, myUser,refreshToken}) => {
             {
                 user?
                 <div className="right-col">
+                    <div className="responsive-nav-bar">
+                        <div className="button">
+                            <Link to={'/home'}>
+                            <Button className="b" icon={<HomeOutlined />}>Home</Button>
+                            </Link>
+                        </div>
+                        <div className="button">
+                            <Link to={"/profile/" + myUser.username}>
+                            <Button className="b" icon={<UserOutlined />}>Profile</Button>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="responsive-search-col"  style={{marginTop :"20px"}}>
+                        <Search myUser={myUser} token = {token}/>
+                        <CommonHashtags />
+                    </div>
                     <Header route="profile" name={user.name} numOfTweets ={tweets==null ? 0 : tweets.count}/>
                     <ProfileHeader 
                         token = {token}
@@ -93,7 +110,7 @@ const Profile = ({token, myUser,refreshToken}) => {
                 :
                 <div></div>
             }
-            <div className="search-col"  style={{ marginLeft : "140px", marginTop :"20px"}}>
+            <div className="search-col"  >
                 <Search myUser={myUser} token = {token}/>
                 <CommonHashtags />
             </div>

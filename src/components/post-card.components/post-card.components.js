@@ -15,13 +15,14 @@ import WriteTweet from '../write-tweet/write-tweet.components'
 import axios from 'axios';
 
 const PostCard = ({ tweet, myUser, token , deleteP , index }) => {
-    const likedBy = ['ali', 'hasan', 'mohsen']
+    const likedBy = tweet.likes
     const avatar = tweet.user.picture_url
     const name = tweet.user.name
     const userName = tweet.user.username
     const date = tweet.date
     const postText = tweet.text
     const postMedias = tweet.image
+    const video = tweet.video
     const pk = tweet.id
     let history = useHistory()
     const [liked, setLiked] = useState(null);
@@ -30,7 +31,7 @@ const PostCard = ({ tweet, myUser, token , deleteP , index }) => {
     const [retweeted, setRetweeted] = useState(null);
     const [retweetedLen, setRetweetedLen] = useState(null);
     const [commentsLen, setCommentsLen] = useState(null);
-    const dateFloor = (Date.now() - new Date(date)) / 1000
+    const dateFloor = (Date.now() - Date.parse(date)) / 1000
     let formData = { id: pk }
     let whoLikes = []
     let retweetedList = []
@@ -219,8 +220,16 @@ const PostCard = ({ tweet, myUser, token , deleteP , index }) => {
                     </div>
                     <div className="post">
                         <div className="tweetText">{postText}</div>
+                        {video}
                         <div className="media">
                             <img src={postMedias}></img>
+                            {
+                                video ?
+                                <video src={video} type="video/mp4" controls></video>
+                                :
+                                <div style={{display: 'none'}}></div>
+                            }
+
                         </div>
                     </div>
                 </div>

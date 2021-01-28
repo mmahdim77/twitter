@@ -309,7 +309,7 @@ const ProfileHeader = ({ token, myusername, cover, avatar, name, userName, bio, 
                 </div>
                 <div className="biography">
                     <span className="name">{name}</span>
-                    <span className="userName">{userName}</span>
+                    <span className="userName">@{userName}</span>
                     <span className="bio">{bio}</span>
 
                 </div>

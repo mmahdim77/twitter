@@ -10,6 +10,9 @@ import { withRouter } from "react-router";
 import PostCard from '../../components/post-card.components/post-card.components'
 import CommonHashtags from '../../components/common-hashtags.component/common-hashtags.components'
 import Search from '../../components/search.components/search.components'
+import { Link, useParams } from 'react-router-dom'
+import { Button, Avatar, Menu, Dropdown } from 'antd';
+import { HomeOutlined, UserOutlined } from '@ant-design/icons';
 
  class Status extends React.Component {
     constructor(props) {
@@ -33,15 +36,15 @@ import Search from '../../components/search.components/search.components'
             }
         ).then(
             async (cmnts) => {
-                console.log("comments")
-                console.log(cmnts)
+                // console.log("comments")
+                // console.log(cmnts)
                 let id
                 let temp=[]
                 for (let i =0; i<cmnts.length ; i+=1){
                     // console.log("for")
                     await axios.get('http://twitterapifinal.pythonanywhere.com/twitt/get/'+cmnts[i] ).then(
                         response => {
-                            console.log(response.data)
+                            // console.log(response.data)
                             temp.push(response.data)
                         }
                     )
@@ -67,6 +70,22 @@ import Search from '../../components/search.components/search.components'
             {
                 this.state.mainTweet?
                 <div className="right-col">
+                    <div className="responsive-nav-bar">
+                        <div className="button">
+                            <Link to={'/home'}>
+                            <Button className="b" icon={<HomeOutlined />}>Home</Button>
+                            </Link>
+                        </div>
+                        <div className="button">
+                            <Link to={"/profile/" + this.props.myUser.username}>
+                            <Button className="b" icon={<UserOutlined />}>Profile</Button>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="responsive-search-col"  style={{marginTop :"20px"}}>
+                        <Search myUser={this.props.myUser} token = {this.props.token}/>
+                        <CommonHashtags />
+                    </div>
                     <Header route="tweet" />
                     <PostCard
                         myUser ={this.props.myUser}
@@ -78,8 +97,8 @@ import Search from '../../components/search.components/search.components'
                         this.state.comments.length>0 ?
                         this.state.comments.map(
                             (tweet) =>{
-                                console.log("tweet")
-                                console.log(tweet)
+                                // console.log("tweet")
+                                // console.log(tweet)
                                 return (
                                 <div>
                                     <PostCard token ={this.props.token} myUser = {this.props.myUser} tweet = {tweet}/>
@@ -94,8 +113,8 @@ import Search from '../../components/search.components/search.components'
                 :
                 <div></div>
             }
-            <div className="search-col"  style={{ marginLeft : "140px", marginTop :"20px"}}>
-                <Search myUser={this.props.myUser} token={this.props.token}/>
+            <div className="search-col"  >
+                <Search myUser={this.props.myUser} token = {this.props.token}/>
                 <CommonHashtags />
             </div>
         </div>

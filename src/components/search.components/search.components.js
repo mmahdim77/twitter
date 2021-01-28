@@ -55,7 +55,7 @@ const SearchCom = ({myUser, token}) => {
         },[tweetListObj]
     )
     return (
-        <div>
+        <div className="search-component">
             <label>
                 <Search placeholder="input search text" allowClear onSearch={search}  />
                 {/* <Input icon={<SearchOutlined />} style={{ display: "inline" }} className="input" value={searchItem} placeholder="search" onChange={(e) => setSerachItem(e.target.value)} >
